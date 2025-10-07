@@ -39,3 +39,8 @@ export const getUser = async (req, res) => {
   let users = await User.find();
   res.status(200).send(users);
 };
+
+export const deleteUser = async (req, res) => {
+  let users = await User.findByIdAndDelete(req.params.id);
+  res.send({message:"User Delete Successfully"})
+};
