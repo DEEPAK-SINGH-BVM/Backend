@@ -1,8 +1,13 @@
 const { connect } = require("mongoose");
+require("dotenv").config();
 
 const db = async () => {
-  await connect("mongodb://localhost:27017");
-  console.log("Connect Server Done !!");
+  try {
+    await connect(process.env.MONGO_DB);
+    console.log("Connect Server Done !!");
+  } catch (error) {
+    console.log("Not Connect To Server");
+  }
 };
 
-module.exports = db
+module.exports = db;
