@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List </title>
+</head>
+
+<body>
+    <h4>Product List </h4>
+    <ul id="product-list"></ul>
+    <script type="module">
+        const response = await fetch("http://localhost:9090/")
+        const data = await response.json()
+        console.log(data);
+
+        document.getElementById("product-list").innerHTML = data.map(p => `<li>${p.price} - ${p.des}</il>`).join('')
+    </script>
+</body>
+
+</html>

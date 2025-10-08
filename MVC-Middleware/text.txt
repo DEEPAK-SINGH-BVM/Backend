@@ -1,0 +1,6 @@
+1  What is cors 
+=> CORS (CROSS ORIGIN RESOURCES SHARING )
+=> CORS allow frontend to access backend api from a different origin without cors browser block the Cross origin request 
+=> Cors only allow in frontend Library like ReactJS it rule not apply in html it can directly access from url 
+=> npm i cors 
+=> app.use(cors())
