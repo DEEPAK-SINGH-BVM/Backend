@@ -1,0 +1,8 @@
+(i) What is enum ? 
+ =>  in enum after set role or etc it not be changes also it use for multiple roles base
+(ii) new → creates a new document (object) from the Mongoose model in memory.
+(iii)save() → stores that document permanently into the MongoDB database.
+(iv) res.send() sends any type of response,
+(v)  res.json() is for sending structured JSON data (preferred in APIs).
+(vi) Token (JWT) is a secure, signed string that contains user data (payload) and is used for authentication; it is generated using a secret key and can have an optional expiration time to control validity.
+ =>  payload :  { id: user._id, role: user.role }, JWT_SECRET , expiresIn (optional) 
