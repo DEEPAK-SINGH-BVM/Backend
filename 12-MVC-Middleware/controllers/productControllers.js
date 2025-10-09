@@ -3,12 +3,6 @@ const Product = require("../model/productModel");
 const getProduct = async (req, res) => {
   try {
     let data = await Product.find();
-
-    // try {
-    //   res.send(data);
-    // } catch (error) {
-    //   res.status(500).send({ message: "Product Details Not Found !!" });
-    // }
     if (!data) {
       res.status(400).send({ message: "Product Details Not Found !!" });
     }
@@ -21,12 +15,6 @@ const getProduct = async (req, res) => {
 const getProductId = async (req, res) => {
   try {
     let data = await Product.findById(req.params.id);
-
-    // try {
-    //   res.send(data);
-    // } catch (error) {
-    //   res.status(500).send({ message: "Product Details Not Found !!" });
-    // }
     if (!data) {
       res.status(400).send({ message: "Product Details Not Found !!" });
     }
@@ -35,16 +23,9 @@ const getProductId = async (req, res) => {
     res.status(500).send({ message: "Product Not Found  !!" });
   }
 };
-
 const createProduct = async (req, res) => {
   try {
     let data = await Product.create(req.body);
-
-    // try {
-    //   res.send(data);
-    // } catch (error) {
-    //   res.status(500).send({ message: "Product Details Not Found !!" });
-    // }
     if (!data) {
       res.status(400).send({ message: "Product Details Not Found !!" });
     }
@@ -57,12 +38,6 @@ const createProduct = async (req, res) => {
 const updateProduct = async (req, res) => {
   try {
     let data = await Product.findByIdAndUpdate(req.params.id, req.body);
-
-    // try {
-    //   res.send(data);
-    // } catch (error) {
-    //   res.status(500).send({ message: "Product Details Not Found !!" });
-    // }
     if (!data) {
       res.status(400).send({ message: "Product Details Not Found !!" });
     }
@@ -75,11 +50,6 @@ const updateProduct = async (req, res) => {
 const deleteProduct = async (req, res) => {
   try {
     let data = await Product.findByIdAndDelete(req.params.id);
-    // try {
-    //   res.send({ message: "Product Deleted" });
-    // } catch (error) {
-    //   res.status(500).send({ message: "Product Details Not Found !!" });
-    // }
     if (!data) {
       res.status(400).send({ message: "Product Details Not Found !!" });
     }

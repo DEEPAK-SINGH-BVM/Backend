@@ -42,5 +42,5 @@ export const getUser = async (req, res) => {
 
 export const deleteUser = async (req, res) => {
   let users = await User.findByIdAndDelete(req.params.id);
-  res.send({ message: "User Delete Successfully" });
+  res.send({ message: "User Delete Successfully", users });
 };
