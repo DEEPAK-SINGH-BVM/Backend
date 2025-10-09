@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const authorize = require("../middleware/userMiddleware")
+const authorize = require("../middleware/userMiddleware");
 const jwt = require("jsonwebtoken");
 const { register, login } = require("../controllers/userControllers");
 
@@ -21,18 +21,27 @@ const authenticate = (req, res, next) => {
 };
 
 router.post("/register", register);
-router.post("/login",login)
+router.post("/login", login);
 
-router.get("/admin", authenticate, authorize(['create','read','update','delete'])),(req,res)=>{
-    res.json({message :"Admin Content"})
-};
+router.get(
+  "/admin",
+  authenticate,
+  authorize(["create", "read", "update", "delete"]),
+  (req, res) => {
+    res.json({ message: "Admin Content" });
+  }
+);
 
-router.get('editor',authenticate,authorize(['create','read','update'])),(req,res)=>{
-    res.json({message:"Editor Content"})
-}
+router.get(
+  "/editor",
+  authenticate,
+  authorize(["create", "read", "update"]),
+  (req, res) => {
+    res.json({ message: "Editor Content" });
+  }
+);
 
-router.get('user',authenticate , authorize (['read'])),(req,res)=>{
-    res.json({message:"User Content"})
-}
-
-module.exports = router
+router.get("/user", authenticate, authorize(["read"]), (req, res) => {
+  res.json({ message: "User Content" });
+});
+module.exports = router;

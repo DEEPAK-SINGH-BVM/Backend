@@ -2,7 +2,7 @@ const roles = require("../role/role");
 // pass a requirePermission parameter
 const authorize = (requirePermission) => (req, res, next) => {
   // take role from user.roles
-  const userRole = req.user.roles;
+  const userRole = req.user.role;
 
   const userPermissions = roles[userRole] || [];
   //every is check
