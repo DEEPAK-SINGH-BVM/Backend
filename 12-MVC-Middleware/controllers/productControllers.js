@@ -23,8 +23,12 @@ const getProductId = async (req, res) => {
     res.status(500).send({ message: "Product Not Found  !!" });
   }
 };
+
 const createProduct = async (req, res) => {
   try {
+    // forMultiple Data
+    // const products = Array.isArray(req.body) ? req.body : [req.body];
+    // let data = await Product.create(products);
     let data = await Product.create(req.body);
     if (!data) {
       res.status(400).send({ message: "Product Details Not Found !!" });
