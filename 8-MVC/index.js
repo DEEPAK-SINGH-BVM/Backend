@@ -8,7 +8,7 @@ app.use(express.json());
 app.use("/", router);
 // app.use(router)
 
-app.listen(7040, () => {
-  console.log("Server Running 7040!!");
+app.listen(7050, () => {
+  console.log("Server Running 7050!!");
   db();
 });

@@ -9,7 +9,7 @@ app.use(cors());
 
 app.use("/", router);
 
-app.listen(7050, () => {
-  console.log("Server Start Successfully 7050!!");
+app.listen(7060, () => {
+  console.log("Server Start Successfully 7060!!");
   db();
 });

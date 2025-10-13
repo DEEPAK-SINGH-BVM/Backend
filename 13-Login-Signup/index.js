@@ -8,9 +8,9 @@ app.use(express.json());
 
 app.use("/", router);
 
-const PORT = process.env.PORT || 7060;
+const PORT = process.env.PORT || 7070;
 
 app.listen(PORT, () => {
-  console.log("Server Start Successfully 7060!!");
+  console.log("Server Start Successfully 7070!!");
   db();
 });

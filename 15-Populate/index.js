@@ -12,5 +12,5 @@ app.use("/user", routerUser);
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
   db();
-  console.log("Server Start Successfully !!");
+  console.log(`Server Start Successfully !! ${PORT}`);
 });

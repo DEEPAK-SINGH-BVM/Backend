@@ -11,6 +11,6 @@ app.use("/", router);
 const PORT = process.env.PORT;
 
 app.listen(PORT, () => {
-  console.log("Server start Successfully ");
+  console.log(`Server start Successfully ${PORT}`);
   db();
 });
