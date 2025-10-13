@@ -36,9 +36,12 @@ const Product = () => {
   //  Edit
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(newProduct, "NewProduct");
     if (!newProduct.name || !newProduct.price || !newProduct.des) {
       return alert("All Fields are Required!");
     }
+    console.log(editProduct, "EditProduct");
+    console.log(newProduct, "NewProduct");
 
     if (editProduct) {
       await axios.patch(`http://localhost:7050/${editProduct}`, newProduct);
