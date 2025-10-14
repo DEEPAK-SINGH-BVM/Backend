@@ -3,7 +3,7 @@ import FileUploads from "./Image";
 function App() {
   return (
     <div>
-      <FileUploads/>
+      <FileUploads />
     </div>
   );
 }
