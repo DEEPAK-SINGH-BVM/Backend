@@ -1,0 +1,9 @@
+What is Multer 
+=> Multer is npm package , use in node.js Application for file uploads . 
+=> it allow for file uploads form client side to server side 
+=> Uploads files form server in , Memory Storage , diskStorage , Storage Engine
+* Disk Storage = Disk Storage engine give you full control on storing file to your disk 
+* Memory Storage = Memory Storage engine stores file in Memory as Buffer Object 
+* Custom Storage = Custom Storage is Own multer Storage Engine , that has two Function : _handleFile and _removeFile 
+=> There are three parameter (req, file , cb )
+=> File Filtering : Support File filter base on file size , type other credential    
