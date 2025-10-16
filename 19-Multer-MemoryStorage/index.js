@@ -4,7 +4,6 @@ const cloudinary = require("cloudinary").v2;
 const cors = require("cors");
 const app = express();
 const fs = require("fs");
-const { url } = require("inspector");
 
 app.use(express.json());
 app.use(cors());
@@ -38,6 +37,7 @@ app.get("/", async (req, res) => {
       public_id: img.public_id,
       // get the direct HTTPS link to the uploaded image.
       url: img.secure_url,
+      //  
     }));
     console.log("IMAGE", images);
     res.json(images);
@@ -48,7 +48,7 @@ app.post("/", upload.single("image"), (req, res) => {
   console.log(req.file, "FILES");
 
   if (!req.file) {
-    return res.status(400).json({ message: "File not uploaded" });
+    return res.status(400).json({ message: "File Required" });
   }
   // fs structure
   fs.writeFileSync("test.png", req.file.buffer);

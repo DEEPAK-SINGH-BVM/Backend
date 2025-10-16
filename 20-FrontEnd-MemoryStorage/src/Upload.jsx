@@ -29,7 +29,7 @@ const Upload = () => {
       console.log(res, "Response");
       ref.current.value = null;
     } catch (error) {
-      console.log("Error in Upload File ");
+      console.log("Error in uploads file / Images");
     }
   };
   return (

@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@google-cloud/storage": "^7.17.2",
+    "express": "^5.1.0",
+    "multer": "^2.0.2",
+    "multer-cloud-storage": "^4.1.0",
+    "nodemon": "^0.0.1-security"
+  }
+}
