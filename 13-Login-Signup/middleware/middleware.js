@@ -24,20 +24,5 @@ async function signupMiddleware(req, res, next) {
   }
   next();
 }
-// function loginMiddleware(req, res, next) {
-//   const { email, password } = req.body;
-
-//   if (!email) {
-//     res.status(400).send("Email Required !!");
-//   }
-
-//   if (!password) {
-//     res.status(400).send("Password Required !!");
-//   }
-//   next()
-
-// }
-
-// export  {signupMiddleware , loginMiddleware};
 
 export default signupMiddleware;
