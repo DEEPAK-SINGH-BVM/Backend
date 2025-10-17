@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+import "./Signup.css"
 const Signup = () => {
   const [name, setName] = useState("");
   console.log(name,'Name');
@@ -28,7 +28,7 @@ const Signup = () => {
   };
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="signup-form">
         <label htmlFor="">Name : </label>
         <input
           type="text"

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+import "./Login.css"
 const Login = () => {
   const [email, setEmail] = useState("");
   console.log(email, "Email");
@@ -26,7 +26,7 @@ const Login = () => {
     }
   };
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="login-form">
       <label htmlFor="">Email : </label>
       <input
         type="email"
@@ -44,7 +44,7 @@ const Login = () => {
       />
       <br />
       <br />
-      <button type="submit">Login : </button>
+      <button type="submit">Login </button>
     </form>
   );
 };
