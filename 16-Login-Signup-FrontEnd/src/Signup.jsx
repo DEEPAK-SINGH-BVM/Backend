@@ -4,9 +4,11 @@ import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const [name, setName] = useState("");
+  console.log(name,'Name');
   const [email, setEmail] = useState("");
+  console.log(email,'Email');
   const [password, setPassword] = useState("");
-
+  console.log(password,'Password');
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,7 +29,7 @@ const Signup = () => {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="">Name</label>
+        <label htmlFor="">Name : </label>
         <input
           type="text"
           value={name}
@@ -36,7 +38,7 @@ const Signup = () => {
         />
         <br />
         <br />
-        <label htmlFor="">Email</label>
+        <label htmlFor="">Email : </label>
         <input
           type="text"
           value={email}
@@ -45,7 +47,7 @@ const Signup = () => {
         />
         <br />
         <br />
-        <label htmlFor="">Password</label>
+        <label htmlFor="">Password : </label>
         <input
           type="text"
           value={password}

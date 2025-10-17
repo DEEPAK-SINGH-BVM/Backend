@@ -27,7 +27,7 @@ const Login = () => {
   };
   return (
     <form onSubmit={handleSubmit}>
-      <label htmlFor="">Email</label>
+      <label htmlFor="">Email : </label>
       <input
         type="email"
         value={email}
@@ -35,7 +35,7 @@ const Login = () => {
         onChange={(e) => setEmail(e.target.value)}
       />
       <br /> <br />
-      <label htmlFor="">Password</label>
+      <label htmlFor="">Password : </label>
       <input
         type="text"
         value={password}
@@ -44,7 +44,7 @@ const Login = () => {
       />
       <br />
       <br />
-      <button type="submit">Login</button>
+      <button type="submit">Login : </button>
     </form>
   );
 };
