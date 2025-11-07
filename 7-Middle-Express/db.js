@@ -1,7 +1,8 @@
 const { connect } = require("mongoose");
-
+require("dotenv").config();
 const db = async () => {
-  await connect("mongodb://localhost:27017");
+  // await connect("mongodb://localhost:27017");
+  await connect(process.env.MONGO_DB);
   console.log("Server Connect Successfully ");
 };
 

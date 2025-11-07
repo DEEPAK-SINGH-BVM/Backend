@@ -18,7 +18,7 @@ const getUser = async (req, res) => {
 
 const getUserById = async (req, res) => {
   let data = await User.findById(req.params.id);
-  res.send(data)
+  res.send(data);
 };
 
 const createUser = async (req, res) => {
@@ -36,4 +36,31 @@ const deleteUser = async (req, res) => {
   res.send({ message: "User Delete Successfully !!", data });
 };
 
-module.exports = { getUser,getUserById, createUser, updateUser, deleteUser };
+module.exports = { getUser, getUserById, createUser, updateUser, deleteUser };
+
+// const getUser = async (req, res) => {
+//   let data = await User.find();
+//   res.send(data);
+// };
+
+// const getUserById = async (req, res) => {
+//   let data = await User.findById(req.params.id);
+//   res.send(data);
+// };
+
+// const createUser = async (req, res) => {
+//   let data = await User.create(req.body);
+//   res.send(data);
+// };
+
+// const updateUser = async (req, res) => {
+//   let data = await User.findByIdAndUpdate(req.params.id, req.body);
+//   res.send(data);
+// };
+
+// const deleteUser = async (req, res) => {
+//   let data = await User.findByIdAndDelete(req.params.id);
+//   res.send("User Deleted");
+// };
+
+// module.exports = { getUser, getUserById, createUser, updateUser, deleteUser };

@@ -1,7 +1,7 @@
 // what is http
 // => http hyper text transfer protocol is use for create HTTP server and HTTP request
 
-const http = require("http");
+// const http = require("http");
 
 const server = http.createServer((req, res) => {
   const url = req.url;
@@ -22,3 +22,21 @@ const server = http.createServer((req, res) => {
 server.listen(7000, () => {
   console.log("Server Start 7000!!");
 });
+
+// const http = require("http");
+
+// const server = http.createServer((req, res) => {
+//   const url = req.url;
+
+//   if (url === "/") {
+//     res.end("DashBoard Page");
+//   } else if (url === "/home") {
+//     res.end("Home Page");
+//   } else {
+//     res.end("404 Page Not Found !!");
+//   }
+// });
+
+// server.listen(7000, () => {
+//   console.log("Server Start 7000 !!");
+// });

@@ -12,5 +12,3 @@ NPM (NODE PACKAGE MANAGER)
  ==> node index.js(file name ) , nodemon 
  3) What is Nodemon ?
  ==> Nodemon is use for restart server automatic also after some changes server was restart 
-
-

@@ -1,4 +1,4 @@
-// const os = require("os");
+const os = require("os");
 
 // // OS type
 // console.log("OS Type:", os.type());
@@ -6,7 +6,7 @@
 // // Platform
 // console.log("Platform:", os.platform());
 
-// // CPU architecture
+// CPU architecture
 // console.log("CPU Architecture:", os.arch());
 
 // // Total memory
@@ -21,8 +21,12 @@
 // // Uptime in seconds
 // console.log("System Uptime:", os.uptime());
 
-const os = require("os");
+// const os = require("os");
 
 // Get CPU info
-const cpus = os.cpus();
-console.log("Number of CPU cores:", cpus.length);
+// const cpus = os.cpus();
+// console.log("Number of CPU cores:", cpus.length);
+
+// one line 
+// console.log("Length",os.cpus().length);
+

@@ -63,6 +63,31 @@ const deleteProduct = async (req, res) => {
   }
 };
 
+// const getProduct = async (req, res) => {
+//   let data = await Product.find();
+//   res.send(data);
+// };
+
+// const getProductId = async (req, res) => {
+//   let data = await Product.findById(req.params.id);
+//   res.send(data);
+// };
+
+// const createProduct = async (req, res) => {
+//   let data = await Product.create(req.body);
+//   res.send(data);
+// };
+
+// const updateProduct = async (req, res) => {
+//   let data = await Product.findByIdAndUpdate(req.params.id, req.body);
+//   res.send(data);
+// };
+
+// const deleteProduct = async (req, res) => {
+//   let data = await Product.findByIdAndDelete(req.params.id);
+//   res.send("Product Deleted");
+// };
+
 module.exports = {
   getProduct,
   getProductId,

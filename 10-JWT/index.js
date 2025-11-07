@@ -7,8 +7,8 @@ const payload = { id: "1", role: "admin" };
 const secret = "abcd1234";
 // jwt.sign take , payload , secret , option and convert into token format
 const token = jwt.sign(payload, secret, { expiresIn: "24h" });
-console.log(token);
+console.log("TOKEN :", token);
 
 // jwt.verify take token(token format data ) and secret key if both are make secret key then it convert into normal format
 const decode = jwt.verify(token, secret);
-console.log(decode);
+console.log("DECODE :", decode);

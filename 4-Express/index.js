@@ -20,3 +20,15 @@ app.get("/about", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server Start !! ${PORT}`);
 });
+
+// const express = require("express");
+// const app = express();
+// const PORT = 7010;
+
+// app.get("/", (req, res) => {
+//   res.send("Hello Express");
+// });
+
+// app.listen(PORT, () => {
+//   console.log("Server Start");
+// });
