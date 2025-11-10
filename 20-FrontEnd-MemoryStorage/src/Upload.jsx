@@ -42,6 +42,8 @@ const Upload = () => {
       console.log("Error in uploads file / Images");
     }
   };
+
+  
   return (
     <div>
       <form onSubmit={submit}>
