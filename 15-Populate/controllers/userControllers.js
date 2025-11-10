@@ -1,4 +1,5 @@
-const { User } = require("../model/PostModel");
+const User = require("../model/userModel");
+
 
 const createUser = async (req, res) => {
   // destructure of validation

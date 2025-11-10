@@ -21,8 +21,10 @@ cloudinary.config({
 });
 
 // setup multer for file Uploads
+// tells Multer to store uploaded files temporarily in RAM (memory) instead of saving them on disk.
 const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
+// sets up Multer middleware that will use that memory storage when handling file uploads.
+const upload = multer({ storage });
 // get
 app.get("/", async (req, res) => {
   // this is api method that fetch resource from your cloudinary account
@@ -37,12 +39,15 @@ app.get("/", async (req, res) => {
       public_id: img.public_id,
       // get the direct HTTPS link to the uploaded image.
       url: img.secure_url,
-      //  
+      //
     }));
     console.log("IMAGE", images);
     res.json(images);
-  } catch (error) {}
+  } catch (error) {
+    console.log("Error in Image Uploading !!", error);
+  }
 });
+
 // post
 app.post("/", upload.single("image"), (req, res) => {
   console.log(req.file, "FILES");

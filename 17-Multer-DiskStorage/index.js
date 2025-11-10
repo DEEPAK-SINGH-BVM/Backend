@@ -24,7 +24,7 @@ const storage = multer.diskStorage({
 const uploads = multer({
   storage: storage,
   limits: {
-    fileSize: 2 * 1024 * 1024,
+    fileSize: 2 * 2024 * 2024,
   },
   fileFilter: (req, file, cb) => {
     const allowTypes = ["image/jpeg", "image/png", "image/gif"];
@@ -36,21 +36,19 @@ const uploads = multer({
   },
 });
 
+// file is key
 // app.post("/uploads", uploads.single("file"), (req, res) => {
 //   res.send("File Uploads Successfully ");
 // });
 
-// for multiple Images
-app.post(
-  "/uploadMultipleSingleField",
-  uploads.array("multipleFiles", 10),
-  (req, res) => {
+// for multiple Images                              // multipleFiles is key
+app.post("/uploadMultipleSingleField",uploads.array("multipleFiles", 10),(req, res) => {
+    res.send("File Uploads Successfully !!");
     // req.files for file as just like as req.body
     console.log(req.files, "Files upload From FrontEnd Side ");
-    res.send("File Uploads Successfully !!");
   }
 );
 
 app.listen(PORT, () => {
-  console.log("Server Start Successfully !!");
+  console.log("Server Start Successfully 3000 !!");
 });

@@ -1,20 +1,16 @@
 const mongoose = require("mongoose");
-
-const userSchema = new mongoose.Schema({
-  username: String,
-  email: String,
-});
+// The populate() method in Mongoose automatically replaces a referenced field (ObjectId) with the actual document from another collection
 
 const postSchema = new mongoose.Schema({
   title: String,
   postBy: {
+    // id for replace whole ref object with matching Id
     type: mongoose.Schema.Types.ObjectId,
-    // user details
+    // in ref give model to get user details from Id
     ref: "User",
   },
 });
 
-const User = mongoose.model("User", userSchema);
 const Post = mongoose.model("Post", postSchema);
 
-module.exports = { User, Post };
+module.exports = Post;
