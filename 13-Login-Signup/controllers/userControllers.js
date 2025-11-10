@@ -47,6 +47,7 @@ export const signup = async (req, res) => {
 // };
 
 export const login = async (req, res) => {
+
   const { email, password } = req.body;
 
   const user = await User.findOne({ email });
@@ -67,6 +68,7 @@ export const login = async (req, res) => {
       expiresIn: "24h",
     }
   );
+  
   console.log(token, "tokennnnnnnnnnnnn");
 
   res.json({ message: "Login SuccessFully !!", token });
