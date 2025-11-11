@@ -41,7 +41,7 @@ app.get("/", async (req, res) => {
       url: img.secure_url,
       //
     }));
-    console.log("IMAGE", images);
+    // console.log("IMAGE", images);
     res.json(images);
   } catch (error) {
     console.log("Error in Image Uploading !!", error);

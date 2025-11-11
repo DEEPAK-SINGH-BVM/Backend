@@ -25,7 +25,7 @@ const Upload = () => {
       const res = await axios.get("http://localhost:8000");
       setImage(res.data);
     };
-    fetchImage()
+    fetchImage();
   });
 
   const submit = async (e) => {
@@ -50,7 +50,8 @@ const Upload = () => {
         <input
           type="file"
           ref={ref}
-          // .files[0] for selecting one file 
+          // .files[0] for selecting one file
+          // e.target.files is an array like object of all selected file [0] pick the first single file
           onChange={(e) => setFile(e.target.files[0])}
         />
         <button type="submit">Uploads</button>
