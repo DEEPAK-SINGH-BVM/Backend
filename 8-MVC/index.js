@@ -23,5 +23,5 @@ app.use("/", router);
 
 app.listen(7050, () => {
   db();
-  console.log("Server Start Successfully !!");
+  console.log("Server Start Successfully 7050!!");
 });

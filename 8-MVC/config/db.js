@@ -6,7 +6,6 @@
 // };
 
 // module.exports = db
-
 const { connect } = require("mongoose");
 require("dotenv").config();
 

@@ -22,14 +22,17 @@ const transporter = nodemailer.createTransport({
 
 // for sending Images , PDF
 const storage = multer.diskStorage({
+  // this is destination of that folder to store file
   destination: (req, file, cb) => {
     cb(null, "uploads/");
   },
+  // for originalname
   filename: (req, file, cb) => {
     cb(null, file.originalname);
   },
 });
 
+// Creates a Multer object to handle file uploads
 const Upload = multer({ storage });
 
 app.post("/sendEmail", Upload.array("files"), async (req, res) => {
@@ -38,10 +41,21 @@ app.post("/sendEmail", Upload.array("files"), async (req, res) => {
   try {
     const { to, subject, text } = req.body;
 
-    const attachments = req.files.map((file) => ({
-      filename: file.originalname,
-      path: file.path,
-    }));
+    // const attachments = req.files.map((file) => ({
+    //   filename: file.originalname,
+    //   path: file.path,
+    // }));
+
+    const attachments = req.files.map((file) => {
+      console.log("File-Original Name", file.originalname);
+      console.log("File-Path", file.path);
+
+      return {
+        filename: file.originalname,
+        path: file.path,
+      };
+    });
+
     // console.log("sending email to ", to);
     // console.log("mail subject", subject);
     // console.log("text", text);

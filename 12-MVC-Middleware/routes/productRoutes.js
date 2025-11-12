@@ -9,10 +9,10 @@ const {
 const productMiddleware = require("../middleware/productMiddleware");
 const router = express.Router();
 
-router.get("/", getProduct);
-router.get("/:id", getProductId);
-router.post("/", productMiddleware, createProduct);
-router.patch("/:id", updateProduct);
-router.delete("/:id", deleteProduct);
+router.get("/products", getProduct);
+router.get("/products/:id", getProductId);
+router.post("/products", productMiddleware, createProduct);
+router.patch("/products/:id", updateProduct);
+router.delete("/products/:id", deleteProduct);
 
 module.exports = router;

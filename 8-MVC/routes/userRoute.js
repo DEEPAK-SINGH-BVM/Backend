@@ -27,10 +27,10 @@ const {
 } = require("../controllers/userControllers");
 
 const router = express.Router();
-router.get("/", getUser);
-router.get("/:id", getUserById);
-router.post("/", createUser);
-router.patch("/:id", updateUser);
-router.delete("/:id", deleteUser);
+router.get("/user", getUser);
+router.get("/user/:id", getUserById);
+router.post("/user", createUser);
+router.patch("/user/:id", updateUser);
+router.delete("/user/:id", deleteUser);
 
 module.exports = router;
