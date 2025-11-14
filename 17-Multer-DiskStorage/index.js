@@ -26,17 +26,18 @@ const storage = multer.diskStorage({
 
 // [Filter] File Size
 const uploads = multer({
+  // use for tell where and how to storage uploads file
   storage: storage,
   limits: {
     fileSize: 2 * 2024 * 2024,
   },
   fileFilter: (req, file, cb) => {
-    const allowTypes = ["image/jpeg", "image/png", "image/gif"];
+    const allowTypes = ["image/jpeg", "image/png"];
     // Multipurpose Internet Mail Extensions mime is use for findOut type
     if (!allowTypes.includes(file.mimetype)) {
       return cb(new Error("Invalid file type"), false);
     }
-    cb(null, true);
+    cb(null, true); // accept / reject
   },
 });
 
@@ -62,7 +63,7 @@ app.get("/getMultipleFiles", (req, res) => {
     // Read all the files and folders that exist inside the uploads directory` and return them as an array
     const files = fs.readdirSync(folderPath);
     console.log("All Files Exists in Folder", files);
-  
+
     const fileData = files.map((file) => ({
       name: file,
       url: `http://localhost:3000/uploads/${file}`,

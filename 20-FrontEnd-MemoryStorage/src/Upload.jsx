@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import axios from "axios";
 import { useEffect } from "react";
+// * Memory Storage Has limit to get Images
 const Upload = () => {
   const [file, setFile] = useState(null);
   const [image, setImage] = useState([]);

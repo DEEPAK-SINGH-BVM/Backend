@@ -20,10 +20,10 @@ const FileUploads = () => {
 
   const submit = async (e) => {
     e.preventDefault();
-    if (file.length === 0) {
-      alert("Select File");
-    }
-    
+    // only work on multiple file 
+    // if (file.length === 0) {
+    //   alert("Select File");
+    // }
     // console.log(file.length, "FILE Length");
     // formData was built-in Object for sending img , pdf , file to server
     const formData = new FormData();
@@ -34,7 +34,7 @@ const FileUploads = () => {
     // }
 
     // uploading single Image
-    // 
+    //
 
     formData.append("file", file);
     // append file to formData as key value
@@ -63,20 +63,23 @@ const FileUploads = () => {
       </form>
 
       <div style={{ display: "flex" }}>
-        {images.map((img) => (
-          <div key={img.name}>
-            <img
-              src={img.url}
-              alt={img.name}
-              style={{
-                width: "60px",
-                height: "60px",
-                objectFit: "cover",
-                padding: "10px",
-              }}
-            />
-          </div>
-        ))}
+        {images.map((img) => {
+          console.log("Image-Name", img.name);
+          return (
+            <div key={img.name}>
+              <img
+                src={img.url}
+                alt={img.name}
+                style={{
+                  width: "60px",
+                  height: "60px",
+                  objectFit: "cover",
+                  padding: "10px",
+                }}
+              />
+            </div>
+          );
+        })}
       </div>
     </div>
   );
