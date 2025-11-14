@@ -1,0 +1,30 @@
+AUTH-ROUTE-JS
+Keyword / Function	         Source	    Meaning
+express.Router()	         Express	Create router
+router.get()	             Express	Define GET route
+res.send()	                 Express	Send response
+res.redirect()	             Express	Redirect to another route
+next()	                     Express	Pass control to next middleware
+//
+Keyword / Function	        Source 	    Meaning
+passport.authenticate()	    Passport	Start OAuth flow / verify user
+req.isAuthenticated()	    Passport	Check if user logged in
+req.logout()	            Passport	Logs out the user and clears session
+
+PASSPORT-JS 
+Keyword / Function	         Source	    Meaning
+passport.use()	            Passport	Register a login strategy
+passport.serializeUser()	Passport	Save user data to session
+passport.deserializeUser()	Passport	Restore user from session
+done()	                    Passport	Callback to complete authentication
+//
+Keyword / Function	        Source	            Meaning
+GoogleStrategy	   passport-google-oauth20	    Google login strategy class
+new GoogleStrategy({...})	Strategy	        Create Google login method
+(accessToken, 
+refreshToken, profile, done) Google Strategy    Handler called after Google verifies user
+
+INDEX-JS
+Keyword / Function          Source      Meaning
+passport.initialize         Passport    start passport for handle authentication
+passport.session()          Passport    connect passport with session for keep user login
