@@ -28,3 +28,9 @@ INDEX-JS
 Keyword / Function          Source      Meaning
 passport.initialize         Passport    start passport for handle authentication
 passport.session()          Passport    connect passport with session for keep user login
+
+
+CLIENT_ID=852794116692-d7g10s2orjnpob7lcmp5jkmqqu58mk7g.apps.googleusercontent.comUNKNOWE
+GOOGLE_CLIENT_SEC=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
+GOOGLE_CALLBACK_URL=http://localhost:5000/auth/google/callback
+SESSION_SEC=secretkeyforgoogleauth
