@@ -2,13 +2,14 @@ const express = require("express");
 const session = require("express-session");
 const passport = require("passport");
 require("./config/passport");
+require("dotenv").config()
 const authRoute = require("./routes/authRoute");
 
 const app = express();
 // store user login information securely so user stay login
 app.use(                      
   session({                     
-    secret: "secretkeyforgoogleauth",                     
+    secret: process.env.GOOGLE_CLIENT_ID,                     
     resave: false,                      
     saveUninitialized: false,                     
   })                      
