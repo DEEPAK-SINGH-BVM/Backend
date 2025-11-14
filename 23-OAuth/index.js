@@ -9,7 +9,7 @@ const app = express();
 // store user login information securely so user stay login
 app.use(                      
   session({                     
-    secret: process.env.GOOGLE_CLIENT_ID,                     
+    secret: process.env.SESSION_SECRET,                     
     resave: false,                      
     saveUninitialized: false,                     
   })                      
