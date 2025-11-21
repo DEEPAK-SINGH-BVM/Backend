@@ -37,9 +37,10 @@ const Nodemailer = () => {
       formData.append("files", files[i]);
     }
     const res = await axios.post("http://localhost:8020/api/send", formData);
-    console.log("response data ", res.data);
+    console.log("response data :", res.data);
     alert("Message Send");
        console.log("...", files);
+       
     // without files
     // await axios.post("http://localhost:8020/api/send", {
     //   from: "deepaksingh.bvminfotech@gmail.com",
@@ -47,6 +48,7 @@ const Nodemailer = () => {
     //   subject,
     //   message,
     // });
+
     setTo("");
     setSubject("");
     setMessage("");

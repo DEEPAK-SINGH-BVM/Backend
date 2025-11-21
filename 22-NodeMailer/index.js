@@ -49,7 +49,7 @@ app.post("/sendEmail", Upload.array("files"), async (req, res) => {
     const attachments = req.files.map((file) => {
       console.log("File-Original Name", file.originalname);
       console.log("File-Path", file.path);
-
+      
       return {
         filename: file.originalname,
         path: file.path,
