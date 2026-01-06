@@ -11,11 +11,14 @@
     <h4>Product List </h4>
     <ul id="product-list"></ul>
     <script type="module">
-        const response = await fetch("http://localhost:7050/")
+        const response = await fetch("http://localhost:7060/products")
         const data = await response.json()
         console.log(data);
 
-        document.getElementById("product-list").innerHTML = data.map(p => `<li>${p.price} - ${p.des}</il>`).join('')
+        document.getElementById("product-list").innerHTML = data.map(p =>{ 
+        console.log("Price",p);
+        return`<li>${p.name} -${p.price} - ${p.des}</il>`
+        }).join('')
     </script>
 </body>
 

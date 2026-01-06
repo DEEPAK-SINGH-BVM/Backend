@@ -2,9 +2,9 @@ const { connect } = require("mongoose");
 require("dotenv").config();
 const db = async () => {
   try {
-    // await connect("mongodb://127.0.0.1:27017/myDatabase");
     await connect(process.env.MONGO_DB);
-    console.log("Connected Successfully to MongoDB");
+    //   await connect("mongodb+srv://deepaksinghbvminfotech_db_user:3i1vruw8sQ3AROkB@cluster1.ukqa7iy.mongodb.net/express_crud");
+    console.log("Connected Successfully to MongoDB");   
   } catch (error) {
     console.error("MongoDB connection failed:", error.message);
   }

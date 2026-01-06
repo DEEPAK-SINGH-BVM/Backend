@@ -7,6 +7,7 @@ const app = express();
 const db = require("./db");
 const User = require("./userSchema");
 app.use(express.json());
+// app.use(express.json()) takes JSON data and converts it into a JavaScript object.
 
 app.get("/user", async (req, res) => {
   let data = await User.find();
@@ -19,6 +20,8 @@ app.get("/user/:id", async (req, res) => {
 });
 
 app.post("/user", async (req, res) => {
+  // console.log('req.body',req.body);
+  // console.log("type ", typeof req.body); 
   let data = await User.create(req.body);
   res.send(data);
 });

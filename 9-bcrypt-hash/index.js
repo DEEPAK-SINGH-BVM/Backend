@@ -9,21 +9,17 @@
 // => bcrypt.compare is use when you convert password in hash format
 // => it compare without convert password in normal format
 
-import bcrypt  from "bcrypt";
+import bcrypt from "bcrypt";
 
-const password = "12345"
+const password = "12345";
 
-const hashPassword = await bcrypt.hash(password,1);
-console.log(hashPassword);
+const hashPassword = await bcrypt.hash(password, 10);
+console.log("hashPassword:", hashPassword);
 
-const isMatch = await bcrypt.compare("12345",hashPassword)
-console.log(isMatch);
+// Why use 10 
+// Salt rounds tell bcrypt how many times to process the password before generating the hash.
+// Lower number → faster hashing → less secure
+// Higher number → slower hashing → more secure
 
-// import bcrypt from "bcrypt";
-// const password = "12345";
-
-// const hashPassword = await bcrypt.hash(password, 1);
-// console.log("Hash Format", hashPassword);
-
-// const isMatch = await bcrypt.compare("12345", hashPassword);
-// console.log(isMatch);
+const isMatch = await bcrypt.compare("12345", hashPassword);
+console.log("Match Password:", isMatch);

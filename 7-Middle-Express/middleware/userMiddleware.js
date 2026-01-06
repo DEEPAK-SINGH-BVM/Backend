@@ -16,23 +16,3 @@ function userValidation(req, res, next) {
 }
 
 module.exports = userValidation;
-
-// function userValidation(req, res, next) {
-//   const { name, email, password } = req.body;
-
-//   if (!name) {
-//     return res.status(400).send("User name require");
-//   }
-
-//   if (!email) {
-//     return res.status(400).send("User Email require");
-//   }
-
-//   if (!password || password.length < 6) {
-//     return res.status(400).send("Password Must be strong ");
-//   }
-
-//   next();
-// }
-
-// module.exports = userValidation;

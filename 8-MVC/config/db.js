@@ -1,16 +1,18 @@
 // const { connect } = require("mongoose");
+// require("dotenv").config();
 
 // const db = async () => {
-//   await connect("mongodb://localhost:27017");
-//   console.log("Server Connect Successfully !!");
+//   await connect(process.env.MONGO_DB);
+//   console.log("Connect to server");
 // };
 
-// module.exports = db
-const { connect } = require("mongoose");
+// module.exports = db;
+
+const mongoose = require("mongoose");
 require("dotenv").config();
 
-const db = async () => {
-  await connect(process.env.MONGO_DB);
+const db = async ()=>{
+  await mongoose.connect(process.env.MONGO_DB);
   console.log("Connect to server");
 };
 

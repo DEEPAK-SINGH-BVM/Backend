@@ -21,8 +21,6 @@ const os = require("os");
 // // Uptime in seconds
 // console.log("System Uptime:", os.uptime());
 
-// const os = require("os");
-
 // Get CPU info
 // const cpus = os.cpus();
 // console.log("Number of CPU cores:", cpus.length);
