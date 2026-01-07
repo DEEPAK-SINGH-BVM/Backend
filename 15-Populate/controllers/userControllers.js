@@ -1,5 +1,5 @@
+const Post = require("../model/PostModel");
 const User = require("../model/userModel");
-
 
 const createUser = async (req, res) => {
   // destructure of validation
@@ -23,6 +23,19 @@ const createUser = async (req, res) => {
   }
 };
 
+const getUserWithPost = async (req, res) => {
+  const userId = req.params.id;
+
+  const user = await User.findById(userId);
+  if (!user) {
+    return res.status(400).send({ message: "User Not Found !!" });
+  }
+
+  const posts = await Post.find({ postBy: userId }).select("title");
+
+  return res.status(200).send({user,posts});
+};
+
 const getAllUser = async (req, res) => {
   try {
     const getUser = await User.find();
@@ -32,4 +45,4 @@ const getAllUser = async (req, res) => {
   }
 };
 
-module.exports = { createUser, getAllUser };
+module.exports = { createUser, getAllUser, getUserWithPost };

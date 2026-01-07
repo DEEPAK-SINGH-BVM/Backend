@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Post = require("../model/PostModel");
+const User = require("../model/userModel")
 
 const createPost = async (req, res) => {
   // console.log("Create Post Working");
@@ -15,8 +16,9 @@ const createPost = async (req, res) => {
 
     // MongoDB ObjectIds are 24-character hexadecimal strings (0–9, a–f)
 
-    if (!mongoose.Types.ObjectId.isValid(postBy)) {
-      res.status(400).json({ message: "ID Not Match !!" });
+    const user = await User.findById(postBy);
+    if(!user){
+      return res.status(400).send({message:"User Not Found !!"})
     }
     const newPost = await Post.create({ title, postBy });
     res.status(200).json(newPost);
@@ -24,18 +26,9 @@ const createPost = async (req, res) => {
     res.json({ message: "Error in Create Post" });
   }
 };
-
-// const createPost = async (req, res) => {
-//   const { title, postBy } = req.body;
-//   if (!mongoose.Types.ObjectId.isValid(postBy)) {
-//     return res.status(400).json({ message: "ID not match" });
-//   }
-//   const newPost = await Post.create({ title, postBy });
-//   res.status(200).json(newPost);
-// };
-
 const getAllPost = async (req, res) => {
   try {
+    // populate() automatically fetches related documents using ObjectId references.
     const getPost = await Post.find().populate("postBy");
     res.status(200).json(getPost);
   } catch (error) {
@@ -43,8 +36,4 @@ const getAllPost = async (req, res) => {
   }
 };
 
-// const getAllPost = async (req, res) => {
-//   const getPost = await Post.find().populate("postBy");
-//   res.status(200).json(getPost);
-// };
 module.exports = { createPost, getAllPost };
