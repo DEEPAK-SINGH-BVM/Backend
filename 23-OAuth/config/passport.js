@@ -1,4 +1,4 @@
-// For authentication, the passport library makes it easier to log users in using various methods (such as Google, Facebook, GitHub, JWT, etc.).
+// For authentication, the passport library makes it easier to login users in using various methods (such as Google, Facebook, GitHub, JWT, etc.).
 require("dotenv").config();
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;

@@ -2,14 +2,15 @@ const express = require("express");
 const passport = require("passport");
 const router = express.Router();
 // get the information that describe in scope
-router.get(
-  "/auth/google",
+router.get("/auth/google",
   // passport.authenticate inbuilt passport function that automatic redirect to google login page
   passport.authenticate("google", {
     scope: ["profile", "email"],
-    // prompt: "select_account", // force google to login page
-    prompt:"consent",
+    // Ask Google for user’s name, photo, and email
+    prompt: "consent",
+    // It simply checks if the user is already logged in. If a valid session or token exists, Google does not show the login page and redirects directly to the home page.
     accessType: "offline",
+    // When a user logs in today, the access token may expire tomorrow. Using this option, your app can automatically get a new token without requiring the user to log in again. This avoids asking the user to log in every day.
   })
 );
 
@@ -24,7 +25,9 @@ router.get(
 //
 router.get("/", (req, res) => {
   if (req.isAuthenticated()) {
+    // “Returns true when a logged‑in user exists (session active), otherwise false.
     res.send(`Home Page - User Login as ${req.user.displayName} !!`);
+    console.log("isAuthenticated", req.isAuthenticated());
   } else {
     res.send("Home Page User Not Login !!");
   }
