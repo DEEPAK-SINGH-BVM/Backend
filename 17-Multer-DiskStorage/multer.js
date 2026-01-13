@@ -14,7 +14,7 @@
 // });
 
 // // Create a Multer instance to use in routes.
-// const upload = multer({ storage: storage });
+// const upload = multer({ storage });
 
 // app.post("/uploads", upload.single("file"), (req, res) => {
 // //   console.log(req.file);
@@ -39,7 +39,7 @@ const storage = multer.diskStorage({
   },
 });
 // destination
-const upload = multer({ storage: storage });
+const upload = multer({ storage });
 
 // app.post("/uploads", upload.array("file",10), (req, res) => {
 //   res.send("File uploads Successfully !!");

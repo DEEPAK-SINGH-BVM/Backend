@@ -22,20 +22,10 @@ router.get(
   passport.authenticate("google", { failureRedirect: "/login" ,session:true}),
   (req, res) => {
     // res.redirect("/");
-    res.redirect(`${process.env.FRONTEND_URL}/oauth-success`);
+    res.redirect(`${process.env.FRONTEND_URL}/dashboard`);
   }
 );
-//
-// router.get("/", (req, res) => {
-//   if (req.isAuthenticated()) {
-//     // “Returns true when a logged‑in user exists (session active), otherwise false.
-//     res.send(`Home Page - User Login as ${req.user.displayName} !!`);
-//     console.log("isAuthenticated", req.isAuthenticated());
-//   } else {
-//     res.send("Home Page User Not Login !!");
-//   }
-// });
-//
+
 router.get("/logout", (req, res, next) => {
   req.logout(function (err) {
     if (err) {

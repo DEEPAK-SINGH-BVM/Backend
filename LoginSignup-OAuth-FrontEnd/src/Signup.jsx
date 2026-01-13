@@ -19,7 +19,7 @@ const Signup = () => {
         email,
         password,
       });
-
+      // 
       navigate("/dashboard");
       console.log("Signup Successfully !!");
     } catch (error) {

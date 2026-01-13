@@ -1,19 +1,15 @@
 const nodemailer = require("nodemailer");
 const express = require("express");
 const multer = require("multer");
-const dotenv = require("dotenv");
+require("dotenv").config()
 
-dotenv.config();
 const app = express();
 app.use(express.json());
 
 // create a connection to gmail service by using user,pass
 const transporter = nodemailer.createTransport({
   service: "gmail",
-  // auth: {
-  //   user: "deepaksingh.bvminfotech@gmail.com",
-  //   pass: "aewasceoosgevtxi",
-  // },
+  // sender email , pass
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.PASS_USER,
@@ -56,11 +52,13 @@ app.post("/sendEmail", Upload.array("files"), async (req, res) => {
       };
     });
 
-    // console.log("sending email to ", to);
-    // console.log("mail subject", subject);
-    // console.log("text", text);
+    console.log('attachments',attachments);
+    console.log("sending email to :", to);
+    console.log("mail subject :", subject);
+    console.log("text :", text);
 
     // to mail address and there subjects
+    // to , subject , text are in build 
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to,
@@ -68,7 +66,7 @@ app.post("/sendEmail", Upload.array("files"), async (req, res) => {
       text,
       attachments,
     };
-    console.log("step 5 MailOption", mailOptions);
+    console.log("MailOption", mailOptions);
 
     // this is the main function that send email
     const info = await transporter.sendMail(mailOptions);

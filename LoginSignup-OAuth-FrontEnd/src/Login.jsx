@@ -27,7 +27,7 @@ const Login = () => {
   };
   return (
     <form onSubmit={handleSubmit} className="login-form">
-      <label htmlFor="">Email : </label>
+      <label>Email : </label>
       <input
         type="email"
         value={email}
@@ -35,7 +35,7 @@ const Login = () => {
         onChange={(e) => setEmail(e.target.value)}
       />
       <br /> <br />
-      <label htmlFor="">Password : </label>
+      <label>Password : </label>
       <input
         type="text"
         value={password}
@@ -44,9 +44,34 @@ const Login = () => {
       />
       <br />
       <br />
-      <button type="submit">Login </button>
-      <br /><br />
-      <a style={{ cursor: "pointer" }} onClick={() => navigate("/")} className="login-btn">Go to signup</a>
+      <button type="submit">Login</button>
+      <br />
+      <br />
+      <button
+        type="button"
+        style={{
+          backgroundColor: "#4285F4",
+          color: "white",
+          padding: "10px",
+          border: "none",
+          cursor: "pointer",
+        }}
+        onClick={() => {
+          // Redirect to backend Google login route
+          window.location.href = "http://localhost:5000/auth/google";
+        }}
+      >
+        Continue with Google
+      </button>
+      <br />
+      <br />
+      <a
+        style={{ cursor: "pointer" }}
+        onClick={() => navigate("/")}
+        className="login-btn"
+      >
+        Go to signup
+      </a>
     </form>
   );
 };

@@ -2,21 +2,21 @@ const express = require("express");
 const multer = require("multer");
 const cors = require("cors");
 const fs = require("fs");
-// const path = require("path");
-const app = express();
-// get Image
-app.use("/uploads", express.static("uploads"));
 require("dotenv").config();
-
-app.use(cors());
 const PORT = process.env.PORT;
+const app = express();
+app.use(cors());
+// get Image
+// It allows the browser to access files directly from a server folder.
+app.use("/uploads", express.static("uploads"));
+
 const storage = multer.diskStorage({
   // req = is incoming request
   // file = uploads file info like (name,type)
   // cd = callback function
   destination: (req, file, cb) => {
     // null:no error , 'uploads/ : folder path
-    cb(null, "uploads/");
+    cb(null, "uploads");
   },
   filename: (req, file, cb) => {
     // tell multer to save file save name
@@ -27,13 +27,15 @@ const storage = multer.diskStorage({
 // [Filter] File Size
 const uploads = multer({
   // use for tell where and how to storage uploads file
-  storage: storage,
+  storage,
   limits: {
     fileSize: 2 * 2024 * 2024,
   },
   fileFilter: (req, file, cb) => {
     const allowTypes = ["image/jpeg", "image/png"];
     // Multipurpose Internet Mail Extensions mime is use for findOut type
+
+    // Output:true console.log("MimeType", allowTypes.includes(file.mimetype));
     if (!allowTypes.includes(file.mimetype)) {
       return cb(new Error("Invalid file type"), false);
     }
@@ -79,5 +81,5 @@ app.get("/getMultipleFiles", (req, res) => {
 
 // PORT
 app.listen(PORT, () => {
-  console.log("Server Start Successfully 3000 !!");
+  console.log("Server Start Successfully 3001 !!");
 });

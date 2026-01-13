@@ -11,7 +11,7 @@ passport.authenticate()	    Passport	Start OAuth flow / verify user
 req.isAuthenticated()	    Passport	Check if user logged in
 req.logout()	            Passport	Logs out the user and clears session
 
-PASSPORT-JS 
+PASSPORT-JS
 Keyword / Function	         Source	    Meaning
 passport.use()	            Passport	Register a login strategy
 passport.serializeUser()	Passport	Save user data to session
