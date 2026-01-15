@@ -36,9 +36,30 @@ export const login = async (req, res) => {
   res.status(200).send({ message: "Login Successfully!!", token });
 };
 
-export const getUser = async (req, res) => {
+export const getAllUser = async (req, res) => {
   let users = await User.find();
   res.status(200).send(users);
+};
+
+export const getUser = async (req, res) => {
+  // parseInt(string to number ) use to receive data from FrontEnd page,limit from URL
+  const page = parseInt(req.query.page) || 1;
+  console.log("page", page);
+  const limit = parseInt(req.query.limit) || 5;
+  console.log("limit", limit);
+  //    SKIP     1 - 1 = 0 * 1 = 0
+  const skip = (page - 1) * limit;
+  console.log("skip", skip);
+  const users = await User.find().skip(skip).limit(limit);
+     console.log("users", users);
+  const totalUsers = await User.countDocuments();
+  console.log("totalUser", totalUsers);
+
+  res.status(200).send({
+    users,
+    totalPages: Math.ceil(totalUsers / limit),
+    currentPage: page,
+  });
 };
 
 export const getUserId = async (req, res) => {

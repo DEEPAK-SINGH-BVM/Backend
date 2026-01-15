@@ -23,10 +23,7 @@ passport.use(
       console.log("User Profile :", profile);
 
       try {
-        
-
         const email = profile.emails[0].value;
-
         let user = await User.findOne({ email });
 
         if (!user) {

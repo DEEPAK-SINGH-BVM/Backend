@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 // import "./Signup.css";
 const Signup = () => {
   const [name, setName] = useState("");
@@ -9,10 +10,12 @@ const Signup = () => {
   console.log(email, "Email");
   const [password, setPassword] = useState("");
   console.log(password, "Password");
+
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // validation
+  
+     // validation
     try {
       const response = await axios.post("http://localhost:7070/users/signup", {
         name,
@@ -25,6 +28,7 @@ const Signup = () => {
     } catch (error) {
       console.log("Error in Signup");
     }
+
   };
   return (
     <div>
