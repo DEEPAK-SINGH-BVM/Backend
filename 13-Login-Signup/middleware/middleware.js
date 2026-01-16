@@ -7,19 +7,19 @@ async function signupMiddleware(req, res, next) {
   const isExist = await User.findOne({ email });
 
   if (isExist) {
-    return res.status(400).send("User Already Exits");
+    return res.status(400).send({ message: "User Already Exits" });
   }
 
   if (!name) {
-    return res.status(400).send("User Name Required");
+    return res.status(400).send({ message: "User Name Required" });
   }
 
   if (!email) {
-    return res.status(400).send("Email Required");
+    return res.status(400).send({ message: "Email Required" });
   }
 
   if (password.length < 6) {
-    return res.status(400).send("Password Must Be Strong");
+    return res.status(400).send({ message: "Password Must Be Strong" });
   }
   next();
 }

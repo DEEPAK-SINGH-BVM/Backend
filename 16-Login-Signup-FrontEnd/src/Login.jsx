@@ -14,15 +14,15 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:7070/users/login", {
+      const response = await axios.post("http://localhost:7070/users/login", {  
         email,
         password,
       });
       localStorage.setItem("token", response.data.token);
-      navigate("/dashboard");
+      navigate("/");
       console.log("Login successfully  !!");
     } catch (error) {
-      console.log("Error in Login ");
+      alert(error.response.data.message)
     }
   };
   return (
@@ -46,7 +46,7 @@ const Login = () => {
       <br />
       <button type="submit">Login </button>
       <br /><br />
-      <a style={{ cursor: "pointer" }} onClick={() => navigate("/")} className="login-btn">Go to signup</a>
+      <a style={{ cursor: "pointer" }} onClick={() => navigate("/signup")} className="login-btn">Go to signup</a>
     </form>
   );
 };

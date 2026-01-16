@@ -1,7 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 // import "./Signup.css";
 const Signup = () => {
   const [name, setName] = useState("");
@@ -22,13 +21,12 @@ const Signup = () => {
         email,
         password,
       });
-
-      navigate("/dashboard");
+      localStorage.setItem("token", response.data.token);
+      navigate("/");
       console.log("Signup Successfully !!");
     } catch (error) {
-      console.log("Error in Signup");
+      alert(error.response.data.message)
     }
-
   };
   return (
     <div>
