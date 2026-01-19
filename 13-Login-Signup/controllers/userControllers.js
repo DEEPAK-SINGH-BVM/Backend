@@ -4,15 +4,15 @@ import jwt from "jsonwebtoken";
 
 
 export const signup = async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password ,role} = req.body;
   
   const hashPassword = await bcrypt.hash(password, 10);
   console.log("hashPassword", hashPassword);
   
-  const newUser = await User.create({ name, email, password: hashPassword });
+  const newUser = await User.create({ name, email, password: hashPassword, role:role?.toLowerCase() || "user" });
   
   const token = jwt.sign(
-    { id: newUser._id, name: newUser.name, email: newUser.email },
+    { id: newUser._id, name: newUser.name, email: newUser.email ,role:newUser.role},
     process.env.JWT_SECRET,
     { expiresIn: "24h" }
   );
@@ -36,7 +36,7 @@ export const login = async (req, res) => {
     return res.status(400).send({ message: "Password was Incorrect" });
   }
   const token = jwt.sign(
-    { id: user._id, name: user.name, email: user.email },
+    { id: user._id, name: user.name, email: user.email ,role:user.role},
     process.env.JWT_SECRET,
     { expiresIn: "24h" }
   );

@@ -128,6 +128,25 @@ const Product = () => {
           ))}
         </tbody>
       </table>
+      {/* 
+        const routes = [
+        {
+        path: "/",
+        element: <Login />,
+        },
+        ];
+          <BrowserRouter>
+  <Routes>
+    {routes.map((route, index) => (
+      <Route
+        key={index}
+        path={route.path}
+        element={route.element}
+      />
+    ))}
+  </Routes>
+</BrowserRouter>
+        */}
     </div>
   );
 };
