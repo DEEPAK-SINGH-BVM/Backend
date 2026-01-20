@@ -10,7 +10,7 @@
 //   const [editUser, setEditUser] = useState({ name: "", email: "" });
 //   console.log("EditUser", editUser);
 
-import { useNavigate } from "react-router-dom";
+
 
 //   const [editUserId, setEditUserId] = useState(null);
 //   console.log("editUser", editUser);
@@ -161,17 +161,19 @@ import { useNavigate } from "react-router-dom";
 // };
 
 // export default AdmindashBoard;
+import { Outlet, useNavigate } from "react-router-dom"; 
 
 const AdmindashBoard = () => {
-  const navigate = useNavigate();
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    navigate("/login");
-  };
+  // const navigate = useNavigate();
+  // const handleLogout = () => {
+  //   localStorage.removeItem("token");
+  //   navigate("/login");
+  // };
   return (
     <>
       <div>AdmindashBoard</div>
-      <button onClick={handleLogout}>LogOut</button>
+      {/* <button onClick={handleLogout}>LogOut</button> */}
+      <Outlet/>
     </>
   );
 };
