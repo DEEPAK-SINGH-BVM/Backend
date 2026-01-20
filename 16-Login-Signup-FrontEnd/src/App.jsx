@@ -4,8 +4,6 @@ import PageNotFound from "./pageNotFound";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SuperRoute from "./superRoute";
 import SuperDashboard from "./superRole/dashboard/SuperDashboard";
-import SuperDashboardTwo from "./superRole/dashboard/SuperDashboardTwo";
-import SuperDashboardThree from "./superRole/dashboard/SuperDashboardThree";
 import AdminRoute from "./AdminRoute";
 import UserRoute from "./UserRoute";
 import AdmindashBoard from "./adminRole/dashboard/AdmindashBoard";
@@ -26,8 +24,6 @@ function App() {
   //    { path: "/superDashboard",element: <SuperRoute><SuperDashboard /></SuperRoute>,},
 
   //    { path: "/superDashboard", element:<SuperRoute><SuperDashboard/></SuperRoute> },
-  //    { path: "/superDashboardTwo", element:<SuperRoute><SuperDashboardTwo/></SuperRoute>},
-  //    { path: "/superDashboardThree",element:<SuperRoute><SuperDashboardThree/></SuperRoute>},
   //    { path: "/adminDashboard", element:<AdminRoute><AdmindashBoard/></AdminRoute>},
   //    { path: "/userDashboard", element:<UserRoute><UserDashboard/></UserRoute>},
   //   ];
@@ -41,32 +37,29 @@ function App() {
           <Route path="/superDashboard" element={<SuperRoute><SuperDashboard /></SuperRoute>}/>
           <Route path="/superSetting" element={<SuperRoute><SuperSetting/></SuperRoute>}/>
           <Route path="superDashboard" element={<SuperDashboard />}>
-              <Route path="superSetting" element={<SuperSetting />} />
-              <Route path="superAbout" element={<SuperAbout />} />
+              {/* <Route path="superSetting" element={<SuperSetting />} />
+              <Route path="superAbout" element={<SuperAbout />} /> */}
 
-              <Route path="adminDashboard" element={<AdminRoute><AdmindashBoard/></AdminRoute>}/>
-              <Route path="adminSetting" element={<AdminRoute><AdminSetting/></AdminRoute>}/>
-              <Route path="adminAbout" element={<AdminRoute><AdminAbout/></AdminRoute>}/>
+              {/* <Route path="adminDashboard" element={<AdminRoute><AdmindashBoard/></AdminRoute>}/> */}
+              {/* <Route path="adminSetting" element={<AdminRoute><AdminSetting/></AdminRoute>}/>
+              <Route path="adminAbout" element={<AdminRoute><AdminAbout/></AdminRoute>}/> */}
 
-              <Route path="userSetting" element={<UserRoute><UserSetting/></UserRoute>}/>
-              <Route path="userAbout" element={<UserRoute><UserAbout/></UserRoute>}></Route>
+              {/* <Route path="userSetting" element={<UserRoute><UserSetting/></UserRoute>}/>
+              <Route path="userAbout" element={<UserRoute><UserAbout/></UserRoute>}></Route> */}
           </Route>
 
-          <Route path="/superDashboardTwo" element={<SuperRoute><SuperDashboardTwo /></SuperRoute>}/>
-          <Route path="/superDashboardThree" element={<SuperRoute><SuperDashboardThree /></SuperRoute>}/>
-
           <Route path="/adminDashboard" element={<AdminRoute><AdmindashBoard /></AdminRoute>}>
-            <Route path="adminSetting" element={<AdminRoute><AdminSetting/></AdminRoute>}/>
-            <Route path="adminAbout" element={<AdminRoute><AdminAbout/></AdminRoute>}/>
+            {/* <Route path="adminSetting" element={<AdminRoute><AdminSetting/></AdminRoute>}/>
+            <Route path="adminAbout" element={<AdminRoute><AdminAbout/></AdminRoute>}/> */}
 
-            <Route path="userDashboard" element={<UserRoute><UserDashboard/></UserRoute>}/>
-            <Route path="userSetting" element={<UserRoute><UserSetting/></UserRoute>}/>
-            <Route path="userAbout" element={<UserRoute><UserAbout/></UserRoute>}></Route>
+            {/* <Route path="userDashboard" element={<UserRoute><UserDashboard/></UserRoute>}/> */}
+            {/* <Route path="userSetting" element={<UserRoute><UserSetting/></UserRoute>}/>
+            <Route path="userAbout" element={<UserRoute><UserAbout/></UserRoute>}></Route> */}
           </Route>
 
           <Route path="/userDashboard" element={<UserRoute><UserDashboard /></UserRoute>}> 
-             <Route path="userSetting" element={<UserRoute><UserSetting/></UserRoute>}/>
-             <Route path="userAbout" element={<UserRoute><UserAbout/></UserRoute>}></Route>
+             {/* <Route path="userSetting" element={<UserRoute><UserSetting/></UserRoute>}/>
+             <Route path="userAbout" element={<UserRoute><UserAbout/></UserRoute>}></Route> */}
           </Route>
           {/* {routes.map((route, index) => {
             console.log("routePath", route.path);

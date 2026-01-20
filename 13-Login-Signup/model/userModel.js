@@ -12,9 +12,14 @@
 import mongoose from "mongoose";
 
 const userSchema = mongoose.Schema({
-  name: String,
+  firstName: String,
+  lastName: String,
   email: String,
   password: String,
+  gender:{
+    type:String,
+    enum:["male","female"]
+  },
   role: {
     type: String,
     enum: ["user", "admin","superadmin"],

@@ -4,15 +4,15 @@ import jwt from "jsonwebtoken";
 
 
 export const signup = async (req, res) => {
-  const { name, email, password ,role} = req.body;
+  const { firstName, lastName, email, password, gender,role } = req.body;
   
   const hashPassword = await bcrypt.hash(password, 10);
   console.log("hashPassword", hashPassword);
   
-  const newUser = await User.create({ name, email, password: hashPassword, role:role?.toLowerCase() || "user" });
+  const newUser = await User.create({ firstName,lastName, email, password: hashPassword, gender:gender,role:role?.toLowerCase() || "user" });
   
   const token = jwt.sign(
-    { id: newUser._id, name: newUser.name, email: newUser.email ,role:newUser.role},
+    { id: newUser._id, firstName: newUser.firstName,lastName:newUser.lastName, email: newUser.email ,gender:newUser.gender,role:newUser.role},
     process.env.JWT_SECRET,
     { expiresIn: "24h" }
   );
@@ -36,7 +36,7 @@ export const login = async (req, res) => {
     return res.status(400).send({ message: "Password was Incorrect" });
   }
   const token = jwt.sign(
-    { id: user._id, name: user.name, email: user.email ,role:user.role},
+    { id: user._id, firstName: user.firstName, lastName:user.lastName,email: user.email ,gender:user.gender,role:user.role},
     process.env.JWT_SECRET,
     { expiresIn: "24h" }
   );
@@ -53,7 +53,7 @@ export const getUser = async (req, res) => {
   // parseInt(string to number ) use to receive data from FrontEnd page,limit from URL
   const page = parseInt(req.query.page) || 1;
   console.log("page", page);
-  const limit = parseInt(req.query.limit) || 5;
+  const limit = parseInt(req.query.limit) || 10;
   console.log("limit", limit);
   //    SKIP     1 - 1 = 0 * 1 = 0
   const skip = (page - 1) * limit;

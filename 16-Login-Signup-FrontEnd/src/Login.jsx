@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
-// import "./Login.css"
+import "./Login.css"
 const Login = () => {
   const [email, setEmail] = useState("");
   console.log(email, "Email");
@@ -35,6 +35,7 @@ const Login = () => {
   };
   return (
     <form onSubmit={handleSubmit} className="login-form">
+      <h2>Login</h2>
       <label htmlFor="">Email : </label>
       <input
         type="email"

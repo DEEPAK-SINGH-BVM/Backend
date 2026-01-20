@@ -2,7 +2,7 @@
 import User from "../model/userModel.js";
 
 async function signupMiddleware(req, res, next) {
-  const { name, email, password } = req.body;
+  const { firstName, lastName,email, password } = req.body;
 
   const isExist = await User.findOne({ email });
 
@@ -10,8 +10,11 @@ async function signupMiddleware(req, res, next) {
     return res.status(400).send({ message: "User Already Exits" });
   }
 
-  if (!name) {
-    return res.status(400).send({ message: "User Name Required" });
+  if (!firstName) {
+    return res.status(400).send({ message: "User First Name Required" });
+  }
+  if (!lastName) {
+    return res.status(400).send({ message: "User Last Name Required" });
   }
 
   if (!email) {

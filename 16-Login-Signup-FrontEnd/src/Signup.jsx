@@ -2,14 +2,18 @@ import { useState } from "react";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
-// import "./Signup.css";
+import "./Signup.css";
 const Signup = () => {
-  const [name, setName] = useState("");
-  console.log(name, "Name");
+  const [firstName, setFirstName] = useState("");
+  console.log(firstName, "Name");
+   const [lastName, setLastName] = useState("");
+   console.log(lastName, "Name");
   const [email, setEmail] = useState("");
   console.log(email, "Email");
   const [password, setPassword] = useState("");
   console.log(password, "Password");
+  const [gender, setGender] = useState("");
+  console.log(gender, "gender");
   const [role, setRole] = useState("");
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
@@ -17,9 +21,11 @@ const Signup = () => {
 
     // validation
     const response = await axios.post("http://localhost:7070/users/signup", {
-      name,
+      firstName,
+      lastName,
       email,
       password,
+      gender,
       role,
     });
     localStorage.setItem("token", response.data.token);
@@ -43,12 +49,22 @@ const Signup = () => {
   return (
     <div>
       <form onSubmit={handleSubmit} className="signup-form">
-        <label htmlFor="">Name : </label>
+        <h2 >Signup</h2>
+        <label htmlFor="">First Name : </label>
         <input
           type="text"
-          value={name}
-          placeholder="Enter Name"
-          onChange={(e) => setName(e.target.value)}
+          value={firstName}
+          placeholder="Enter First Name"
+          onChange={(e) => setFirstName(e.target.value)}
+        />
+        <br />
+        <br />
+        <label htmlFor="">Last Name : </label>
+        <input
+          type="text"
+          value={lastName}
+          placeholder="Enter Last Name"
+          onChange={(e) => setLastName(e.target.value)}
         />
         <br />
         <br />
@@ -68,6 +84,13 @@ const Signup = () => {
           placeholder="Enter Password"
           onChange={(e) => setPassword(e.target.value)}
         />
+        <br />
+        <br />
+        <label htmlFor="">Last Name : </label>
+        <select value={gender} onChange={(e) => setGender(e.target.value)}>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
         <br />
         <br />
         <select value={role} onChange={(e) => setRole(e.target.value)}>
