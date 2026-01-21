@@ -20,21 +20,23 @@
 
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+// import { Link, Outlet, useNavigate } from "react-router-dom";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
+import Navbar from "../../navbar/Navbar";
+import { jwtDecode } from "jwt-decode";
 const SuperDashboard = () => {
   const [user, setUser] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
   const [limit, setLimit] = useState(10);
-    const [formData, setFormData] = useState({
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: "",
-      gender: "",
-      role: "",
-    });
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    gender: "",
+    role: "",
+  });
   const [editUser, setEditUser] = useState({
     firstName: "",
     lastName: "",
@@ -46,47 +48,60 @@ const SuperDashboard = () => {
 
   const [editUserId, setEditUserId] = useState(null);
   console.log("editUser", editUser);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   console.log("editUserId===", editUserId);
 
-  const fetchUser = async (pageNumber) => {
-    try {
-      const response = await axios.get(
-        `http://localhost:7070/users?page=${pageNumber}&limit=${limit}`,
-        // http://localhost:7070/users?page=2&limit=5
-        // /users : endPoint , ? : start a Query Parameter , page=2 : current page number , limit=5 : user as per page
-      );
-      // const response = await axios.get(`http://localhost:7070/users`);
-      setUser(response.data.users);
-      setTotalPage(response.data.totalPages);
-      console.log("response", response);
-    } catch (error) {
-      console.log("Error to get user", error);
-    }
-  };
 
+  const token = localStorage.getItem("token")
+  console.log("tokenNew",token);
+  const decode = jwtDecode(token);
+  console.log("decodeNew",decode);
+  const userId = decode.id;
+  console.log("userID",userId);
+
+    const fetchUser = async (pageNumber) => {
+      try {
+        const response = await axios.get(
+          `http://localhost:7070/users?page=${pageNumber}&limit=${limit}`,
+          // http://localhost:7070/users?page=2&limit=5
+          // /users : endPoint , ? : start a Query Parameter , page=2 : current page number , limit=5 : user as per page
+        );
+        // const response = await axios.get(`http://localhost:7070/users`);
+        setUser(response.data.users);
+        setTotalPage(response.data.totalPages);
+        console.log("response", response);
+      } catch (error) {
+        alert("Error to get user", error);
+      }
+    };
+  
   useEffect(() => {
     fetchUser(page);
   }, [page, limit]);
 
- 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+    const handleSubmit = async (e) => {
+      e.preventDefault();
 
-    await axios.post("http://localhost:7070/users/signup", formData);
+      try {
+        const response = await axios.post("http://localhost:7070/users/signup",formData,);
+        setFormData({
+          firstName: "",
+          lastName: "",
+          email: "",
+          password: "",
+          gender: "",
+          role: "",
+        });
 
-    setFormData({
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: "",
-      gender: "",
-      role: "",
-    });
-
-    fetchUser(page);
-  };
-
+        fetchUser(page);
+        alert("User created successfully");
+        console.log(response);
+      } catch (error) {
+        console.log('ERROR MESSAGE',error.response.data.message);
+        alert(error.response.data.message);
+      }
+    };
+    
   const handleEdit = (user) => {
     setEditUserId(user._id);
     setEditUser({
@@ -111,14 +126,16 @@ const SuperDashboard = () => {
     await axios.delete(`http://localhost:7070/users/${id}`);
     fetchUser();
   };
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    navigate("/login");
-  };
+  // const handleLogout = () => {
+  //   localStorage.removeItem("token");
+  //   navigate("/login");
+  // };
   return (
     <div>
       <div>
-        <button
+        <Navbar />
+
+        {/* <button
           onClick={handleLogout}
           style={{
             fontSize: "15px",
@@ -130,7 +147,7 @@ const SuperDashboard = () => {
           }}
         >
           LogOut
-        </button>
+        </button> */}
         <div style={{ display: "flex", justifyContent: "center" }}>
           <h2>Super DashBoard</h2>
         </div>
@@ -159,7 +176,7 @@ const SuperDashboard = () => {
           <br />
           <label htmlFor="">Email : </label>
           <input
-            type="text"
+            type="email"
             value={formData.email}
             placeholder="Enter Email"
             onChange={(e) =>
@@ -200,10 +217,11 @@ const SuperDashboard = () => {
           <br />
           <select
             value={formData.role}
-            onChange={(e) =>
-              setFormData({ ...formData, role: e.target.value })
-            }
+            onChange={(e) => setFormData({ ...formData, role: e.target.value })}
           >
+            <option value="" disabled>
+              Select Role
+            </option>
             <option value="user">user</option>
             <option value="admin">Admin</option>
             <option value="superadmin">Super Admin</option>
@@ -215,7 +233,6 @@ const SuperDashboard = () => {
           <br />
         </form>
       </div>
-      <br />
       <div id="table">
         <table>
           <thead>
@@ -241,45 +258,54 @@ const SuperDashboard = () => {
             </tr>
           </thead>
           <tbody>
-            {user.map((p) => (
-              <tr key={p._id}>
-                <td style={{ border: "1px solid black", padding: "8px" }}>
-                  {editUserId == p._id ? (
-                    <input
-                      value={editUser.firstName}
-                      onChange={(e) =>
-                        setEditUser({ ...editUser, firstName: e.target.value })
-                      }
-                    />
-                  ) : (
-                    p.firstName
-                  )}
-                </td>
-                <td style={{ border: "1px solid black", padding: "8px" }}>
-                  {editUserId == p._id ? (
-                    <input
-                      value={editUser.lastName}
-                      onChange={(e) =>
-                        setEditUser({ ...editUser, lastName: e.target.value })
-                      }
-                    />
-                  ) : (
-                    p.lastName
-                  )}
-                </td>
-                <td style={{ border: "1px solid black", padding: "8px" }}>
-                  {editUserId == p._id ? (
-                    <input
-                      value={editUser.email}
-                      onChange={(e) =>
-                        setEditUser({ ...editUser, email: e.target.value })
-                      }
-                    />
-                  ) : (
-                    p.email
-                  )}
-                </td>
-                <td style={{ border: "1px solid black", padding: "8px" }}>
+            {user
+              .filter((p) => p._id !== userId)
+              .map((p) => {
+                return (
+                  <tr key={p._id}>
+                    <td style={{ border: "1px solid black", padding: "8px" }}>
+                      {editUserId == p._id ? (
+                        <input
+                          value={editUser.firstName}
+                          onChange={(e) =>
+                            setEditUser({
+                              ...editUser,
+                              firstName: e.target.value,
+                            })
+                          }
+                        />
+                      ) : (
+                        p.firstName
+                      )}
+                    </td>
+                    <td style={{ border: "1px solid black", padding: "8px" }}>
+                      {editUserId == p._id ? (
+                        <input
+                          value={editUser.lastName}
+                          onChange={(e) =>
+                            setEditUser({
+                              ...editUser,
+                              lastName: e.target.value,
+                            })
+                          }
+                        />
+                      ) : (
+                        p.lastName
+                      )}
+                    </td>
+                    <td style={{ border: "1px solid black", padding: "8px" }}>
+                      {editUserId == p._id ? (
+                        <input
+                          value={editUser.email}
+                          onChange={(e) =>
+                            setEditUser({ ...editUser, email: e.target.value })
+                          }
+                        />
+                      ) : (
+                        p.email
+                      )}
+                    </td>
+                    {/* <td style={{ border: "1px solid black", padding: "8px" }}>
                   {editUserId == p._id ? (
                     <input
                       value={editUser.gender}
@@ -290,8 +316,27 @@ const SuperDashboard = () => {
                   ) : (
                     p.gender
                   )}
-                </td>
-                <td style={{ border: "1px solid black", padding: "8px" }}>
+                </td> */}
+                    <td style={{ border: "1px solid black", padding: "8px" }}>
+                      {editUserId == p._id ? (
+                        <select
+                          value={editUser.gender}
+                          onChange={(e) =>
+                            setEditUser({ ...editUser, gender: e.target.value })
+                          }
+                          required
+                        >
+                          <option value="" disabled>
+                            Select gender
+                          </option>
+                          <option value="male">Male</option>
+                          <option value="female">Female</option>
+                        </select>
+                      ) : (
+                        p.gender
+                      )}
+                    </td>
+                    {/* <td style={{ border: "1px solid black", padding: "8px" }}>
                   {editUserId == p._id ? (
                     <input
                       value={editUser.role}
@@ -302,57 +347,83 @@ const SuperDashboard = () => {
                   ) : (
                     p.role
                   )}
-                </td>
-                <td style={{ border: "1px solid black", padding: "8px" }}>
-                  {editUserId == p._id ? (
-                    <button
-                      style={{ marginRight: "5px" }}
-                      onClick={() => handleUpdate(p._id)}
-                    >
-                      Save
-                    </button>
-                  ) : (
-                    <button
-                      style={{ marginRight: "5px" }}
-                      onClick={() => handleEdit(p)}
-                    >
-                      Edit
-                    </button>
-                  )}
-                  <button onClick={() => handleDelete(p._id)}>Delete</button>
-                </td>
-              </tr>
-            ))}
+                </td> */}
+                    <td style={{ border: "1px solid black", padding: "8px" }}>
+                      {editUserId == p._id ? (
+                        <select
+                          value={editUser.role}
+                          onChange={(e) =>
+                            setEditUser({ ...editUser, role: e.target.value })
+                          }
+                        >
+                          <option value="user">user</option>
+                          <option value="admin">Admin</option>
+                          <option value="superadmin">Super Admin</option>
+                        </select>
+                      ) : (
+                        p.role
+                      )}
+                    </td>
+                    <td style={{ border: "1px solid black", padding: "8px" }}>
+                      {editUserId == p._id ? (
+                        <button
+                          style={{ marginRight: "5px" }}
+                          onClick={() => handleUpdate(p._id)}
+                        >
+                          Save
+                        </button>
+                      ) : (
+                        <button
+                          style={{ marginRight: "5px" }}
+                          onClick={() => handleEdit(p)}
+                        >
+                          Edit
+                        </button>
+                      )}
+                      <button onClick={() => handleDelete(p._id)}>
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
           </tbody>
-          <br />
-          <div style={{ display: "flex", gap: "14px" }}>
-            <select
-              value={limit}
-              onChange={(e) => {
-                console.log("value", e.target.value);
-                setLimit(e.target.value);
-              }}
-            >
-              <option value={10}>10</option>
-              <option value={25}>25</option>
-              <option value={50}>50</option>
-            </select>
-            <button disabled={page == 1} onClick={() => setPage(page - 1)}>
-              <ChevronLeftIcon width={"15px"} />
-            </button>
-
-            <span>
-              Page {page} of {totalPage}
-            </span>
-
-            <button
-              disabled={page == totalPage}
-              onClick={() => setPage(page + 1)}
-            >
-              <ChevronRightIcon width={"15px"} />
-            </button>
-          </div>
         </table>
+      </div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          paddingTop: "20px",
+        }}
+      >
+        <div style={{ display: "flex", gap: "14px" }}>
+          <select
+            value={limit}
+            onChange={(e) => {
+              console.log("value", e.target.value);
+              setLimit(e.target.value);
+            }}
+          >
+            <option value={10}>10</option>
+            <option value={25}>25</option>
+            <option value={50}>50</option>
+          </select>
+          <button disabled={page == 1} onClick={() => setPage(page - 1)}>
+            <ChevronLeftIcon width={"15px"} />
+          </button>
+
+          <span>
+            Page {page} of {totalPage}
+          </span>
+
+          <button
+            disabled={page == totalPage}
+            onClick={() => setPage(page + 1)}
+          >
+            <ChevronRightIcon width={"15px"} />
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -18,9 +18,11 @@
 // export default UserDashboard;
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
-const SuperDashboard = () => {
+import Navbar from "../../navbar/Navbar";
+import { jwtDecode } from "jwt-decode";
+const UserDashboard = () => {
   const [user, setUser] = useState([]);
   console.log("user",user);
   
@@ -28,7 +30,13 @@ const SuperDashboard = () => {
   const [totalPage, setTotalPage] = useState(1);
   const [limit, setLimit] = useState(10);
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+  const token = localStorage.getItem("token")
+  console.log("tokenNew",token);
+  const decode = jwtDecode(token);
+  console.log("decodeNew",decode);
+  const userId = decode.id;
+  console.log("userID",userId);
 
   const fetchUser = async (pageNumber) => {
     try {
@@ -50,14 +58,14 @@ const SuperDashboard = () => {
     fetchUser(page);
   }, [page, limit]);
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    navigate("/login");
-  };
+  // const handleLogout = () => {
+  //   localStorage.removeItem("token");
+  //   navigate("/login");
+  // };
   return (
     <div>
       <div>
-        <button
+        {/* <button
           onClick={handleLogout}
           style={{
             fontSize: "15px",
@@ -69,7 +77,8 @@ const SuperDashboard = () => {
           }}
         >
           LogOut
-        </button>
+        </button> */}
+        <Navbar/>
         <div style={{ display: "flex", justifyContent: "center" }}>
           <h2>User DashBoard</h2>
         </div>
@@ -105,7 +114,7 @@ const SuperDashboard = () => {
           <tbody>
             {user.map((p) => {
               console.log("role", p.role);
-              if (p.role === "user") {
+              if (p.role === "user" && p._id !== userId ) {
                 return (
                   <tr key={p._id}>
                     <td style={{ border: "1px solid black", padding: "8px" }}>
@@ -162,4 +171,4 @@ const SuperDashboard = () => {
   );
 };
 
-export default SuperDashboard;
+export default UserDashboard;

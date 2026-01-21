@@ -1,12 +1,12 @@
 .signup-form {
   width: 300px;
-  margin: 50px auto;
+  margin: 0px auto 50px auto;
   padding: 15px 20px 20px 20px ;
   border: 1px solid #ccc;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
   background-color: #ffffff;
-  font-size:large
+  font-size:large;
 }
 
 .signup-form input {
@@ -43,6 +43,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size:large
+  font-size:large;
 }
 

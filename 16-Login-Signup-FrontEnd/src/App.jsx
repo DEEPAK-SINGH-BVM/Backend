@@ -14,6 +14,7 @@ import AdminSetting from "./adminRole/setting/AdminSetting";
 import AdminAbout from "./adminRole/about/AdminAbout";
 import UserSetting from "./userRole/setting/UserSetting";
 import UserAbout from "./userRole/about/UserAbout";
+import DetailsDash from "./dashBoardDetails/DetailsDash";
 
 
 function App() {
@@ -39,7 +40,6 @@ function App() {
           <Route path="superDashboard" element={<SuperDashboard />}>
               {/* <Route path="superSetting" element={<SuperSetting />} />
               <Route path="superAbout" element={<SuperAbout />} /> */}
-
               {/* <Route path="adminDashboard" element={<AdminRoute><AdmindashBoard/></AdminRoute>}/> */}
               {/* <Route path="adminSetting" element={<AdminRoute><AdminSetting/></AdminRoute>}/>
               <Route path="adminAbout" element={<AdminRoute><AdminAbout/></AdminRoute>}/> */}
@@ -47,7 +47,7 @@ function App() {
               {/* <Route path="userSetting" element={<UserRoute><UserSetting/></UserRoute>}/>
               <Route path="userAbout" element={<UserRoute><UserAbout/></UserRoute>}></Route> */}
           </Route>
-
+          <Route path="/details" element={<DetailsDash />} />
           <Route path="/adminDashboard" element={<AdminRoute><AdmindashBoard /></AdminRoute>}>
             {/* <Route path="adminSetting" element={<AdminRoute><AdminSetting/></AdminRoute>}/>
             <Route path="adminAbout" element={<AdminRoute><AdminAbout/></AdminRoute>}/> */}

@@ -1,8 +1,9 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Navbar from "./navbar/Navbar";
 import { jwtDecode } from "jwt-decode";
-import "./Login.css"
+import "./Login.css";
 const Login = () => {
   const [email, setEmail] = useState("");
   console.log(email, "Email");
@@ -14,56 +15,64 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    try {
       const response = await axios.post("http://localhost:7070/users/login", {
         email,
         password,
       });
       localStorage.setItem("token", response.data.token);
       let token = localStorage.getItem("token");
-      const { role:userRole } = jwtDecode(token);
+      const { role: userRole } = jwtDecode(token);
       console.log("Role of User:", userRole);
-    
+
       if (userRole == "superadmin") {
-         navigate("/superDashboard");
+        navigate("/superDashboard");
       } else if (userRole == "admin") {
-         navigate("/adminDashboard");
+        navigate("/adminDashboard");
       } else if (userRole == "user") {
-         navigate("/userDashboard");
+        navigate("/userDashboard");
       }
       console.log("Login successfully  !!");
-
+    } catch (error) {
+        console.log('error message:',error);
+        
+        alert(error.response.data.message)
+    }
   };
   return (
-    <form onSubmit={handleSubmit} className="login-form">
-      <h2>Login</h2>
-      <label htmlFor="">Email : </label>
-      <input
-        type="email"
-        value={email}
-        placeholder="Enter Email"
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <br /> <br />
-      <label htmlFor="">Password : </label>
-      <input
-        type="text"
-        value={password}
-        placeholder="Enter Password"
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <br />
-      <br />
-      <button type="submit">Login </button>
-      <br />
-      <br />
-      <a
-        style={{ cursor: "pointer" }}
-        onClick={() => navigate("/")}
-        className="login-btn"
-      >
-        Go to signup
-      </a>
-    </form>
+    <div>
+      <Navbar/>
+      <form onSubmit={handleSubmit} className="login-form">
+        <h2>Login</h2>
+        <label htmlFor="">Email : </label>
+        <input
+          type="email"
+          value={email}
+          placeholder="Enter Email"
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <br /> <br />
+        <label htmlFor="">Password : </label>
+        <input
+          type="text"
+          value={password}
+          placeholder="Enter Password"
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <br />
+        <br />
+        <button type="submit">Login </button>
+        <br />
+        <br />
+        <a
+          style={{ cursor: "pointer" }}
+          onClick={() => navigate("/")}
+          className="login-btn"
+        >
+          Go to signup
+        </a>
+      </form>
+    </div>
   );
 };
 

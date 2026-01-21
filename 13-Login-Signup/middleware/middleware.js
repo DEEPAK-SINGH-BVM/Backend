@@ -2,7 +2,7 @@
 import User from "../model/userModel.js";
 
 async function signupMiddleware(req, res, next) {
-  const { firstName, lastName,email, password } = req.body;
+  const { firstName, lastName,email, password , role, gender } = req.body;
 
   const isExist = await User.findOne({ email });
 
@@ -10,16 +10,24 @@ async function signupMiddleware(req, res, next) {
     return res.status(400).send({ message: "User Already Exits" });
   }
 
-  if (!firstName) {
-    return res.status(400).send({ message: "User First Name Required" });
-  }
-  if (!lastName) {
-    return res.status(400).send({ message: "User Last Name Required" });
-  }
+  if (!firstName ||!lastName || !email ||!role ||!gender ) {
+    return res.status(400).send({ message: "All Fields Required Compulsory !!"});
+  } 
+  // if (!lastName) {
+  //   return res.status(400).send({ message: "User Last Name Required" });
+  // }
 
-  if (!email) {
-    return res.status(400).send({ message: "Email Required" });
-  }
+  // if (!email) {
+  //   return res.status(400).send({ message: "Email Required" });
+  // }
+
+  // if (!role) {
+  //   return res.status(400).send({ message: "Role Required" });
+  // }
+
+  // if (!gender) {
+  //   return res.status(400).send({ message: "gender Required" });
+  // }
 
   if (password.length < 6) {
     return res.status(400).send({ message: "Password Must Be Strong" });

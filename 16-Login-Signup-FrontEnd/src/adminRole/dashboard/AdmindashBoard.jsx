@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
+import Navbar from "../../navbar/Navbar";
+import { jwtDecode } from "jwt-decode";
 const AdmindashBoard = () => {
   const [user, setUser] = useState([]);
   const [page, setPage] = useState(1);
@@ -15,19 +17,27 @@ const AdmindashBoard = () => {
     role: "",
   });
   console.log("EditUser", editUser);
-   const [formData, setFormData] = useState({
-     firstName: "",
-     lastName: "",
-     email: "",
-     password: "",
-     gender: "",
-     role: "",
-   });
+
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    gender: "",
+    role: "",
+  });
 
   const [editUserId, setEditUserId] = useState(null);
   console.log("editUser", editUser);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   console.log("editUserId===", editUserId);
+
+  const token = localStorage.getItem("token");
+  console.log("tokenNew", token);
+  const decode = jwtDecode(token);
+  console.log("decodeNew", decode);
+  const userId = decode.id;
+  console.log("userID", userId);
 
   const fetchUser = async (pageNumber) => {
     try {
@@ -51,19 +61,27 @@ const AdmindashBoard = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://localhost:7070/users/signup",
+        formData,
+      );
 
-    await axios.post("http://localhost:7070/users/signup", formData);
-
-    setFormData({
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: "",
-      gender: "",
-      role: "",
-    });
-
-    fetchUser(page);
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+        gender: "",
+        role: "",
+      });
+      fetchUser(page);
+      alert("User created successfully");
+      console.log(response);
+    } catch (error) {
+      console.log("ERROR MESSAGE", error.response.data.message);
+      alert(error.response.data.message);
+    }
   };
 
   const handleEdit = (user) => {
@@ -88,16 +106,16 @@ const AdmindashBoard = () => {
 
   const handleDelete = async (id) => {
     await axios.delete(`http://localhost:7070/users/${id}`);
-    fetchUser();
+    fetchUser(page);
   };
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    navigate("/login");
-  };
+  // const handleLogout = () => {
+  //   localStorage.removeItem("token");
+  //   navigate("/login");
+  // };
   return (
     <div>
       <div>
-        <button
+        {/* <button
           onClick={handleLogout}
           style={{
             fontSize: "15px",
@@ -109,7 +127,8 @@ const AdmindashBoard = () => {
           }}
         >
           LogOut
-        </button>
+        </button> */}
+        <Navbar />
         <div style={{ display: "flex", justifyContent: "center" }}>
           <h2>Admin DashBoard</h2>
         </div>
@@ -138,7 +157,7 @@ const AdmindashBoard = () => {
           <br />
           <label htmlFor="">Email : </label>
           <input
-            type="text"
+            type="email"
             value={formData.email}
             placeholder="Enter Email"
             onChange={(e) =>
@@ -181,6 +200,9 @@ const AdmindashBoard = () => {
             value={formData.role}
             onChange={(e) => setFormData({ ...formData, role: e.target.value })}
           >
+            <option value="" disabled>
+              Select Role
+            </option>
             <option value="user">user</option>
             <option value="admin">Admin</option>
           </select>
@@ -191,7 +213,7 @@ const AdmindashBoard = () => {
           <br />
         </form>
       </div>
-      <br />
+
       <div
         style={{
           display: "flex",
@@ -223,9 +245,10 @@ const AdmindashBoard = () => {
             </tr>
           </thead>
           <tbody>
-            {user.map((p) => {
-              console.log("roles", p.role);
-              if (p.role !== "superadmin") {
+            {user
+              .filter((p) => p.role !== "superadmin" && p._id !== userId)
+              .map((p) => {
+                console.log("roles", p.role);
                 return (
                   <tr key={p._id}>
                     <td style={{ border: "1px solid black", padding: "8px" }}>
@@ -263,14 +286,17 @@ const AdmindashBoard = () => {
                         <input
                           value={editUser.email}
                           onChange={(e) =>
-                            setEditUser({ ...editUser, email: e.target.value })
+                            setEditUser({
+                              ...editUser,
+                              email: e.target.value,
+                            })
                           }
                         />
                       ) : (
                         p.email
                       )}
                     </td>
-                    <td style={{ border: "1px solid black", padding: "8px" }}>
+                    {/* <td style={{ border: "1px solid black", padding: "8px" }}>
                       {editUserId == p._id ? (
                         <input
                           value={editUser.gender}
@@ -281,8 +307,30 @@ const AdmindashBoard = () => {
                       ) : (
                         p.gender
                       )}
-                    </td>
+                    </td> */}
                     <td style={{ border: "1px solid black", padding: "8px" }}>
+                      {editUserId == p._id ? (
+                        <select
+                          value={editUser.gender}
+                          onChange={(e) =>
+                            setEditUser({
+                              ...editUser,
+                              gender: e.target.value,
+                            })
+                          }
+                          required
+                        >
+                          <option value="" disabled>
+                            Select gender
+                          </option>
+                          <option value="male">Male</option>
+                          <option value="female">Female</option>
+                        </select>
+                      ) : (
+                        p.gender
+                      )}
+                    </td>
+                    {/* <td style={{ border: "1px solid black", padding: "8px" }}>
                       {editUserId == p._id ? (
                         <input
                           value={editUser.role}
@@ -290,6 +338,21 @@ const AdmindashBoard = () => {
                             setEditUser({ ...editUser, role: e.target.value })
                           }
                         />
+                      ) : (
+                        p.role
+                      )}
+                    </td> */}
+                    <td style={{ border: "1px solid black", padding: "8px" }}>
+                      {editUserId == p._id ? (
+                        <select
+                          value={editUser.role}
+                          onChange={(e) =>
+                            setEditUser({ ...editUser, role: e.target.value })
+                          }
+                        >
+                          <option value="user">user</option>
+                          <option value="admin">Admin</option>
+                        </select>
                       ) : (
                         p.role
                       )}
@@ -316,40 +379,46 @@ const AdmindashBoard = () => {
                     </td>
                   </tr>
                 );
-              }
-            })}
+              })}
           </tbody>
-          <br />
-          <div style={{ display: "flex", gap: "14px" }}>
-            <select
-              value={limit}
-              onChange={(e) => {
-                console.log("value", e.target.value);
-                setLimit(e.target.value);
-              }}
-            >
-              <option value={10}>10</option>
-              <option value={25}>25</option>
-              <option value={50}>50</option>
-            </select>
-            <button disabled={page == 1} onClick={() => setPage(page - 1)}>
-              {/* Prev */}
-              <ChevronLeftIcon width={"15px"} />
-            </button>
-
-            <span>
-              Page {page} of {totalPage}
-            </span>
-
-            <button
-              disabled={page == totalPage}
-              onClick={() => setPage(page + 1)}
-            >
-              {/* Next */}
-              <ChevronRightIcon width={"15px"} />
-            </button>
-          </div>
         </table>
+      </div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          paddingTop: "20px",
+        }}
+      >
+        <div style={{ display: "flex", gap: "14px" }}>
+          <select
+            value={limit}
+            onChange={(e) => {
+              console.log("value", e.target.value);
+              setLimit(e.target.value);
+            }}
+          >
+            <option value={10}>10</option>
+            <option value={25}>25</option>
+            <option value={50}>50</option>
+          </select>
+          <button disabled={page == 1} onClick={() => setPage(page - 1)}>
+            {/* Prev */}
+            <ChevronLeftIcon width={"15px"} />
+          </button>
+
+          <span>
+            Page {page} of {totalPage}
+          </span>
+
+          <button
+            disabled={page == totalPage}
+            onClick={() => setPage(page + 1)}
+          >
+            {/* Next */}
+            <ChevronRightIcon width={"15px"} />
+          </button>
+        </div>
       </div>
     </div>
   );
