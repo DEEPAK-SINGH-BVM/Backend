@@ -27,17 +27,14 @@ const SuperDashboard = () => {
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
   const [limit, setLimit] = useState(10);
-  const [firstName, setFirstName] = useState("");
-  console.log(firstName, "Name");
-  const [lastName, setLastName] = useState("");
-  console.log(lastName, "Name");
-  const [email, setEmail] = useState("");
-  console.log(email, "Email");
-  const [password, setPassword] = useState("");
-  console.log(password, "Password");
-  const [gender, setGender] = useState("");
-  console.log(gender, "gender");
-  const [role, setRole] = useState("");
+    const [formData, setFormData] = useState({
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      gender: "",
+      role: "",
+    });
   const [editUser, setEditUser] = useState({
     firstName: "",
     lastName: "",
@@ -76,15 +73,18 @@ const SuperDashboard = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const response = await axios.post("http://localhost:7070/users/signup", {
-      firstName,
-      lastName,
-      email,
-      password,
-      gender,
-      role,
+    await axios.post("http://localhost:7070/users/signup", formData);
+
+    setFormData({
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      gender: "",
+      role: "",
     });
-    console.log("response:",response);
+
+    fetchUser(page);
   };
 
   const handleEdit = (user) => {
@@ -118,44 +118,64 @@ const SuperDashboard = () => {
   return (
     <div>
       <div>
-        <button onClick={handleLogout} style={{fontSize:"15px", padding:"10px", backgroundColor:"lightblue", border:"none", borderRadius:"5px", cursor:"pointer"}}>LogOut</button>
-        <div style={{display:"flex", justifyContent:"center"}}>
+        <button
+          onClick={handleLogout}
+          style={{
+            fontSize: "15px",
+            padding: "10px",
+            backgroundColor: "lightblue",
+            border: "none",
+            borderRadius: "5px",
+            cursor: "pointer",
+          }}
+        >
+          LogOut
+        </button>
+        <div style={{ display: "flex", justifyContent: "center" }}>
           <h2>Super DashBoard</h2>
         </div>
         <form onSubmit={handleSubmit} className="signup-form">
           <label htmlFor="">First Name : </label>
           <input
             type="text"
-            value={firstName}
+            value={formData.firstName}
             placeholder="Enter First Name"
-            onChange={(e) => setFirstName(e.target.value)}
+            onChange={(e) =>
+              setFormData({ ...formData, firstName: e.target.value })
+            }
           />
           <br />
           <br />
           <label htmlFor="">Last Name : </label>
           <input
             type="text"
-            value={lastName}
+            value={formData.lastName}
             placeholder="Enter Last Name"
-            onChange={(e) => setLastName(e.target.value)}
+            onChange={(e) =>
+              setFormData({ ...formData, lastName: e.target.value })
+            }
           />
           <br />
           <br />
           <label htmlFor="">Email : </label>
           <input
             type="text"
-            value={email}
+            value={formData.email}
             placeholder="Enter Email"
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) =>
+              setFormData({ ...formData, email: e.target.value })
+            }
           />
           <br />
           <br />
           <label htmlFor="">Password : </label>
           <input
             type="text"
-            value={password}
+            value={formData.password}
             placeholder="Enter Password"
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) =>
+              setFormData({ ...formData, password: e.target.value })
+            }
           />
           <br />
           <br />
@@ -164,8 +184,10 @@ const SuperDashboard = () => {
             <option value="female">Female</option>
           </select> */}
           <select
-            value={gender}
-            onChange={(e) => setGender(e.target.value)}
+            value={formData.gender}
+            onChange={(e) =>
+              setFormData({ ...formData, gender: e.target.value })
+            }
             required
           >
             <option value="" disabled>
@@ -176,7 +198,12 @@ const SuperDashboard = () => {
           </select>
           <br />
           <br />
-          <select value={role} onChange={(e) => setRole(e.target.value)}>
+          <select
+            value={formData.role}
+            onChange={(e) =>
+              setFormData({ ...formData, role: e.target.value })
+            }
+          >
             <option value="user">user</option>
             <option value="admin">Admin</option>
             <option value="superadmin">Super Admin</option>
