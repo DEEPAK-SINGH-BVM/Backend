@@ -15,7 +15,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if(!validate()) return;
-    // try {
+    try {
       const response = await axios.post("http://localhost:7070/users/login",formData );
       localStorage.setItem("token", response.data.token);
       let token = localStorage.getItem("token");
@@ -34,11 +34,11 @@ const Login = () => {
          password: "",
        });
       console.log("Login successfully  !!");
-    // } catch (error) {
-    //     console.log('error message:',error);
+    } catch (error) {
+        console.log('error message:',error);
         
-    //     alert(error.response.data.message)
-    // }
+        alert(error.response.data.message)
+    }
   };
      const validate = () => {
        let newErrors = {};

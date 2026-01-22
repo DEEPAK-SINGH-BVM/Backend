@@ -33,8 +33,8 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate()) return;
-    //  try {
-       // validation
+     try {
+
        const response = await axios.post(
          "http://localhost:7070/users/signup",
          formData,
@@ -64,10 +64,10 @@ const Signup = () => {
        console.log("token", token);
 
        console.log("Signup Successfully !!");
-    //  } catch (error) {
-    //    console.log("ERROR MESSAGE", error.response.data.message);
-    //    alert(error.response.data.message);
-    //  }
+     } catch (error) {
+       console.log("ERROR MESSAGE", error.response.data.message);
+       alert(error.response.data.message);
+     }
   };
   return (
     <div>

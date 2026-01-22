@@ -16,7 +16,7 @@ export const signup = async (req, res) => {
     process.env.JWT_SECRET,
     { expiresIn: "1m" }
   );
-  
+
   console.log('Signup token',token);
   
   res.status(200).send({ message: "Signup Successfully !!",token });

@@ -45,7 +45,7 @@ const SuperDashboard = () => {
     role: "",
   });
   console.log("EditUser", editUser);
-  
+
   const [editUserId, setEditUserId] = useState(null);
   console.log("editUser", editUser);
   // const navigate = useNavigate();
@@ -77,7 +77,7 @@ const SuperDashboard = () => {
   useEffect(() => {
     fetchUser(page);
   }, [page, limit]);
-
+  
    const [errors, setErrors] = useState({});
    const validate = () => {
       let newErrors = {};

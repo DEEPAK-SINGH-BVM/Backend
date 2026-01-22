@@ -24,7 +24,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<AuthRoute><Login /></AuthRoute> } />
-          <Route path="/" element={<AuthRoute><Signup /></AuthRoute>} /> 
+          <Route path="/" element={<AuthRoute><Signup /></AuthRoute>} />
           <Route path="*" element={<PageNotFound />} />
           <Route path="/superDashboard" element={<SuperRoute><SuperDashboard /></SuperRoute>}/>
           {/* <Route path="/superSetting" element={<SuperRoute><SuperSetting/></SuperRoute>}/> */}
@@ -38,7 +38,7 @@ function App() {
               {/* <Route path="userSetting" element={<UserRoute><UserSetting/></UserRoute>}/>
               <Route path="userAbout" element={<UserRoute><UserAbout/></UserRoute>}></Route> */}
           {/* </Route> */}
-          <Route path="/dashboardDetails" element={<DetailsDash />} />
+          <Route path="/dashboard" element={<DetailsDash />} />
           <Route path="/adminDashboard" element={<AdminRoute><AdmindashBoard /></AdminRoute>}>
             {/* <Route path="adminSetting" element={<AdminRoute><AdminSetting/></AdminRoute>}/>
             <Route path="adminAbout" element={<AdminRoute><AdminAbout/></AdminRoute>}/> */}

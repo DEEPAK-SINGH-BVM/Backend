@@ -21,5 +21,5 @@ const superRoute = ({ children }) => {
     return children;
   }
 };
-
+  
 export default superRoute;

@@ -7,7 +7,7 @@ const Navbar = () => {
   const token = localStorage.getItem("token");
 
   const decode = token ? jwtDecode(token) : null;
-  console.log("decode",decode);
+  console.log("decodeNavbar",decode);
   
   const role = decode?.role;
   console.log("role",role);
@@ -36,10 +36,11 @@ const Navbar = () => {
             Welcome , {firstName}
             {lastName}
           </div>
+
           <div style={{ display: "flex", gap: "10px" }}>
-            {(role === "superadmin" || role === "admin" || role === "user" ) && (
+            {(role === "superadmin" || role === "admin" || role === "user" ) && location.pathname !== "/dashboard" &&  (
               <Link
-                to="/dashboardDetails"
+                to="/dashboard"
                 style={{
                   fontSize: "15px",
                   padding: "10px",
@@ -52,7 +53,7 @@ const Navbar = () => {
                 User Dashboard
               </Link>
             )}
-            {location.pathname === "/dashboardDetails" && (
+            {location.pathname === "/dashboard" && (
               <button
                 onClick={() => history.back()}
                 style={{
