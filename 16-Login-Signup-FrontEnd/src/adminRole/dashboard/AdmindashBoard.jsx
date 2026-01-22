@@ -38,6 +38,7 @@ const AdmindashBoard = () => {
   console.log("decodeNew", decode);
   const userId = decode.id;
   console.log("userID", userId);
+  const [errors, setErrors] = useState({});
 
   const fetchUser = async (pageNumber) => {
     try {
@@ -59,8 +60,22 @@ const AdmindashBoard = () => {
     fetchUser(page);
   }, [page, limit]);
 
+   const validate = () => {
+      let newErrors = {};
+
+      if (!formData.firstName) newErrors.firstName = "First name is required";
+      if (!formData.lastName) newErrors.lastName = "Last name is required";
+      if (!formData.email) newErrors.email = "Email is required";
+      if (!formData.password) newErrors.password = "Password is required";
+      if (!formData.gender) newErrors.gender = "Gender is required";
+      if (!formData.role) newErrors.role = "Role is required";
+
+      setErrors(newErrors);
+      return Object.keys(newErrors).length === 0;
+    };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!validate()) return;
     try {
       const response = await axios.post(
         "http://localhost:7070/users/signup",
@@ -142,6 +157,9 @@ const AdmindashBoard = () => {
               setFormData({ ...formData, firstName: e.target.value })
             }
           />
+          <span className="error" style={{ color: "red" }}>
+            {errors.firstName}
+          </span>
           <br />
           <br />
           <label htmlFor="">Last Name : </label>
@@ -153,6 +171,9 @@ const AdmindashBoard = () => {
               setFormData({ ...formData, lastName: e.target.value })
             }
           />
+          <span className="error" style={{ color: "red" }}>
+            {errors.lastName}
+          </span>
           <br />
           <br />
           <label htmlFor="">Email : </label>
@@ -164,6 +185,9 @@ const AdmindashBoard = () => {
               setFormData({ ...formData, email: e.target.value })
             }
           />
+          <span className="error" style={{ color: "red" }}>
+            {errors.email}
+          </span>
           <br />
           <br />
           <label htmlFor="">Password : </label>
@@ -175,6 +199,9 @@ const AdmindashBoard = () => {
               setFormData({ ...formData, password: e.target.value })
             }
           />
+          <span className="error" style={{ color: "red" }}>
+            {errors.password}
+          </span>
           <br />
           <br />
           {/* <select value={gender} onChange={(e) => setGender(e.target.value)}>
@@ -186,7 +213,6 @@ const AdmindashBoard = () => {
             onChange={(e) =>
               setFormData({ ...formData, gender: e.target.value })
             }
-            required
           >
             <option value="" disabled>
               Select gender
@@ -194,6 +220,9 @@ const AdmindashBoard = () => {
             <option value="male">Male</option>
             <option value="female">Female</option>
           </select>
+          <span className="error" style={{ color: "red" }}>
+            {errors.gender}
+          </span>
           <br />
           <br />
           <select
@@ -206,6 +235,9 @@ const AdmindashBoard = () => {
             <option value="user">user</option>
             <option value="admin">Admin</option>
           </select>
+          <span className="error" style={{ color: "red" }}>
+            {errors.role}
+          </span>
           <br />
           <br />
           <button type="submit">Submit</button>

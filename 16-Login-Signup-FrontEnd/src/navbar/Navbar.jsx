@@ -37,23 +37,22 @@ const Navbar = () => {
             {lastName}
           </div>
           <div style={{ display: "flex", gap: "10px" }}>
-            {(role === "superadmin" || role === "admin" || role === "user") && (
+            {(role === "superadmin" || role === "admin" || role === "user" ) && (
               <Link
-                to="/details"
+                to="/dashboardDetails"
                 style={{
                   fontSize: "15px",
                   padding: "10px",
                   backgroundColor: "gray",
                   borderRadius: "5px",
                   textDecoration: "none",
-                  color: "black",
                   color: "white",
                 }}
               >
                 User Dashboard
               </Link>
             )}
-            {location.pathname === "/details" && (
+            {location.pathname === "/dashboardDetails" && (
               <button
                 onClick={() => history.back()}
                 style={{

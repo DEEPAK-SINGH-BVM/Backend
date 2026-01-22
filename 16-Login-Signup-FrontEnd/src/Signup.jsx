@@ -13,21 +13,27 @@ const Signup = () => {
     gender: "",
     role: "",
   });
-  // const [firstName, setFirstName] = useState("");
-  // console.log(firstName, "Name");
-  //  const [lastName, setLastName] = useState("");
-  //  console.log(lastName, "Name");
-  // const [email, setEmail] = useState("");
-  // console.log(email, "Email");
-  // const [password, setPassword] = useState("");
-  // console.log(password, "Password");
-  // const [gender, setGender] = useState("");
-  // console.log(gender, "gender");
-  // const [role, setRole] = useState("");
+
   const navigate = useNavigate();
+  const [errors, setErrors] = useState({});
+   const validate = () => {
+      let newErrors = {};
+
+      if (!formData.firstName) newErrors.firstName = "First name is required";
+      if (!formData.lastName) newErrors.lastName = "Last name is required";
+      if (!formData.email) newErrors.email = "Email is required";
+      if (!formData.password) newErrors.password = "Password is required";
+      if (!formData.gender) newErrors.gender = "Gender is required";
+      if (!formData.role) newErrors.role = "Role is required";
+
+      setErrors(newErrors);
+      return Object.keys(newErrors).length === 0;
+    };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-     try {
+    if (!validate()) return;
+    //  try {
        // validation
        const response = await axios.post(
          "http://localhost:7070/users/signup",
@@ -58,14 +64,14 @@ const Signup = () => {
        console.log("token", token);
 
        console.log("Signup Successfully !!");
-     } catch (error) {
-       console.log("ERROR MESSAGE", error.response.data.message);
-       alert(error.response.data.message);
-     }
+    //  } catch (error) {
+    //    console.log("ERROR MESSAGE", error.response.data.message);
+    //    alert(error.response.data.message);
+    //  }
   };
   return (
     <div>
-      <Navbar/>
+      <Navbar />
       <br />
       <form onSubmit={handleSubmit} className="signup-form">
         <h2>Signup</h2>
@@ -74,10 +80,12 @@ const Signup = () => {
           type="text"
           value={formData.firstName}
           placeholder="Enter First Name"
-          onChange={(e) =>
-            setFormData({ ...formData, firstName: e.target.value })
-          }
+          onChange={(e) => 
+            setFormData({ ...formData, firstName: e.target.value })}
         />
+        <span className="error" style={{ color: "red" }}>
+          {errors.firstName}
+        </span>
         <br />
         <br />
         <label htmlFor="">Last Name : </label>
@@ -85,10 +93,12 @@ const Signup = () => {
           type="text"
           value={formData.lastName}
           placeholder="Enter Last Name"
-          onChange={(e) =>
-            setFormData({ ...formData, lastName: e.target.value })
-          }
+          onChange={(e) => 
+            setFormData({ ...formData, lastName: e.target.value })}
         />
+        <span className="error" style={{ color: "red" }}>
+          {errors.lastName}
+        </span>
         <br />
         <br />
         <label htmlFor="">Email : </label>
@@ -96,8 +106,12 @@ const Signup = () => {
           type="email"
           value={formData.email}
           placeholder="Enter Email"
-          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+          onChange={(e) => 
+            setFormData({ ...formData, email: e.target.value })}
         />
+        <span className="error" style={{ color: "red" }}>
+          {errors.email}
+        </span>
         <br />
         <br />
         <label htmlFor="">Password : </label>
@@ -105,15 +119,18 @@ const Signup = () => {
           type="text"
           value={formData.password}
           placeholder="Enter Password"
-          onChange={(e) =>
-            setFormData({ ...formData, password: e.target.value })
-          }
+          onChange={(e) => 
+            setFormData({ ...formData, password: e.target.value })}
         />
+        <span className="error" style={{ color: "red" }}>
+          {errors.password}
+        </span>
         <br />
         <br />
         <select
           value={formData.gender}
-          onChange={(e) => setFormData({ ...formData, gender: e.target.value })}
+          onChange={(e) => 
+            setFormData({ ...formData, gender: e.target.value })}
         >
           <option value="" disabled>
             Select gender
@@ -121,11 +138,15 @@ const Signup = () => {
           <option value="male">Male</option>
           <option value="female">Female</option>
         </select>
+        <span className="error" style={{ color: "red" }}>
+          {errors.gender}
+        </span>
         <br />
         <br />
         <select
           value={formData.role}
-          onChange={(e) => setFormData({ ...formData, role: e.target.value })}
+          onChange={(e) => 
+            setFormData({ ...formData, role: e.target.value })}
         >
           <option value="" disabled>
             Select Role
@@ -134,6 +155,9 @@ const Signup = () => {
           <option value="admin">Admin</option>
           <option value="superadmin">Super Admin</option>
         </select>
+        <span className="error" style={{ color: "red" }}>
+          {errors.role}
+        </span>
         <br />
         <br />
         <button type="submit">Submit</button>

@@ -5,21 +5,18 @@ import Navbar from "./navbar/Navbar";
 import { jwtDecode } from "jwt-decode";
 import "./Login.css";
 const Login = () => {
-  const [email, setEmail] = useState("");
-  console.log(email, "Email");
-  const [password, setPassword] = useState("");
-  console.log(password, "Password");
 
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+  const [errors, setErrors] = useState({});
   const navigate = useNavigate();
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    try {
-      const response = await axios.post("http://localhost:7070/users/login", {
-        email,
-        password,
-      });
+    if(!validate()) return;
+    // try {
+      const response = await axios.post("http://localhost:7070/users/login",formData );
       localStorage.setItem("token", response.data.token);
       let token = localStorage.getItem("token");
       const { role: userRole } = jwtDecode(token);
@@ -32,33 +29,55 @@ const Login = () => {
       } else if (userRole == "user") {
         navigate("/userDashboard");
       }
+       setFormData({
+         email: "",
+         password: "",
+       });
       console.log("Login successfully  !!");
-    } catch (error) {
-        console.log('error message:',error);
+    // } catch (error) {
+    //     console.log('error message:',error);
         
-        alert(error.response.data.message)
-    }
+    //     alert(error.response.data.message)
+    // }
   };
+     const validate = () => {
+       let newErrors = {};
+       if (!formData.email) newErrors.email = "Email is required";
+       if (!formData.password) newErrors.password = "Password is required";
+
+       setErrors(newErrors);
+       return Object.keys(newErrors).length === 0;
+     };
   return (
     <div>
-      <Navbar/>
+      <Navbar />
       <form onSubmit={handleSubmit} className="login-form">
         <h2>Login</h2>
         <label htmlFor="">Email : </label>
         <input
           type="email"
-          value={email}
+          value={formData.email}
           placeholder="Enter Email"
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) =>
+            setFormData({ ...formData, email: e.target.value })
+          }
         />
+        <span className="error" style={{ color: "red" }}>
+          {errors.email}
+        </span>
         <br /> <br />
         <label htmlFor="">Password : </label>
         <input
           type="text"
-          value={password}
+          value={formData.password}
           placeholder="Enter Password"
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) =>
+            setFormData({ ...formData, password: e.target.value })
+          }
         />
+        <span className="error" style={{ color: "red" }}>
+          {errors.password}
+        </span>
         <br />
         <br />
         <button type="submit">Login </button>

@@ -8,36 +8,27 @@ import AdminRoute from "./AdminRoute";
 import UserRoute from "./UserRoute";
 import AdmindashBoard from "./adminRole/dashboard/AdmindashBoard";
 import UserDashboard from "./userRole/dashboard/UserDashboard";
-import SuperSetting from "./superRole/setting/SuperSetting";
-import SuperAbout from "./superRole/about/SuperAbout";
-import AdminSetting from "./adminRole/setting/AdminSetting";
-import AdminAbout from "./adminRole/about/AdminAbout";
-import UserSetting from "./userRole/setting/UserSetting";
-import UserAbout from "./userRole/about/UserAbout";
+// import SuperSetting from "./superRole/setting/SuperSetting";
+// import SuperAbout from "./superRole/about/SuperAbout";
+// import AdminSetting from "./adminRole/setting/AdminSetting";
+// import AdminAbout from "./adminRole/about/AdminAbout";
+// import UserSetting from "./userRole/setting/UserSetting";
+// import UserAbout from "./userRole/about/UserAbout";
 import DetailsDash from "./dashBoardDetails/DetailsDash";
-
+import AuthRoute from "./AuthRoute"
 
 function App() {
-  //  const routes = [
-  //    { path: "/login", element: <Login /> },
-  //    { path: "/", element: <Signup /> },
-  //    { path: "*", element: <PageNotFound /> },
-  //    { path: "/superDashboard",element: <SuperRoute><SuperDashboard /></SuperRoute>,},
 
-  //    { path: "/superDashboard", element:<SuperRoute><SuperDashboard/></SuperRoute> },
-  //    { path: "/adminDashboard", element:<AdminRoute><AdmindashBoard/></AdminRoute>},
-  //    { path: "/userDashboard", element:<UserRoute><UserDashboard/></UserRoute>},
-  //   ];
   return (
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/" element={<Signup />} /> 
+          <Route path="/login" element={<AuthRoute><Login /></AuthRoute> } />
+          <Route path="/" element={<AuthRoute><Signup /></AuthRoute>} /> 
           <Route path="*" element={<PageNotFound />} />
           <Route path="/superDashboard" element={<SuperRoute><SuperDashboard /></SuperRoute>}/>
-          <Route path="/superSetting" element={<SuperRoute><SuperSetting/></SuperRoute>}/>
-          <Route path="superDashboard" element={<SuperDashboard />}>
+          {/* <Route path="/superSetting" element={<SuperRoute><SuperSetting/></SuperRoute>}/> */}
+          {/* <Route path="superDashboard" element={<SuperDashboard />}> */}
               {/* <Route path="superSetting" element={<SuperSetting />} />
               <Route path="superAbout" element={<SuperAbout />} /> */}
               {/* <Route path="adminDashboard" element={<AdminRoute><AdmindashBoard/></AdminRoute>}/> */}
@@ -46,8 +37,8 @@ function App() {
 
               {/* <Route path="userSetting" element={<UserRoute><UserSetting/></UserRoute>}/>
               <Route path="userAbout" element={<UserRoute><UserAbout/></UserRoute>}></Route> */}
-          </Route>
-          <Route path="/details" element={<DetailsDash />} />
+          {/* </Route> */}
+          <Route path="/dashboardDetails" element={<DetailsDash />} />
           <Route path="/adminDashboard" element={<AdminRoute><AdmindashBoard /></AdminRoute>}>
             {/* <Route path="adminSetting" element={<AdminRoute><AdminSetting/></AdminRoute>}/>
             <Route path="adminAbout" element={<AdminRoute><AdminAbout/></AdminRoute>}/> */}
@@ -72,14 +63,7 @@ function App() {
             <Route key={index} path={route.path} element={route.element} />
           ))}  */}
         </Routes>
-        {/* <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/" element={<Signup />} />
-          <Route path="*" element={<PageNotFound />} />
-          <Route path="superDashboard" element={<SuperDashboard />}>
-            <Route path="setting" element={<SuperSetting />} />
-          </Route>
-        </Routes> */}
+    
       </BrowserRouter>
     </div>
   );

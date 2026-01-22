@@ -14,8 +14,9 @@ export const signup = async (req, res) => {
   const token = jwt.sign(
     { id: newUser._id, firstName: newUser.firstName,lastName:newUser.lastName, email: newUser.email ,gender:newUser.gender,role:newUser.role},
     process.env.JWT_SECRET,
-    { expiresIn: "24h" }
+    { expiresIn: "1m" }
   );
+  
   console.log('Signup token',token);
   
   res.status(200).send({ message: "Signup Successfully !!",token });
@@ -38,8 +39,9 @@ export const login = async (req, res) => {
   const token = jwt.sign(
     { id: user._id, firstName: user.firstName, lastName:user.lastName,email: user.email ,gender:user.gender,role:user.role},
     process.env.JWT_SECRET,
-    { expiresIn: "24h" }
+    { expiresIn: "1m" }
   );
+
   console.log("token :",token);
   res.status(200).send({ message: "Login Successfully!!", token });
 };

@@ -45,12 +45,11 @@ const SuperDashboard = () => {
     role: "",
   });
   console.log("EditUser", editUser);
-
+  
   const [editUserId, setEditUserId] = useState(null);
   console.log("editUser", editUser);
   // const navigate = useNavigate();
   console.log("editUserId===", editUserId);
-
 
   const token = localStorage.getItem("token")
   console.log("tokenNew",token);
@@ -58,7 +57,7 @@ const SuperDashboard = () => {
   console.log("decodeNew",decode);
   const userId = decode.id;
   console.log("userID",userId);
-
+  
     const fetchUser = async (pageNumber) => {
       try {
         const response = await axios.get(
@@ -79,9 +78,24 @@ const SuperDashboard = () => {
     fetchUser(page);
   }, [page, limit]);
 
+   const [errors, setErrors] = useState({});
+   const validate = () => {
+      let newErrors = {};
+
+      if (!formData.firstName) newErrors.firstName = "First name is required";
+      if (!formData.lastName) newErrors.lastName = "Last name is required";
+      if (!formData.email) newErrors.email = "Email is required";
+      if (!formData.password) newErrors.password = "Password is required";
+      if (!formData.gender) newErrors.gender = "Gender is required";
+      if (!formData.role) newErrors.role = "Role is required";
+
+      setErrors(newErrors);
+      return Object.keys(newErrors).length === 0;
+    };
+
     const handleSubmit = async (e) => {
       e.preventDefault();
-
+      if (!validate()) return;
       try {
         const response = await axios.post("http://localhost:7070/users/signup",formData,);
         setFormData({
@@ -161,6 +175,9 @@ const SuperDashboard = () => {
               setFormData({ ...formData, firstName: e.target.value })
             }
           />
+           <span className="error" style={{ color: "red" }}>
+          {errors.firstName}
+        </span>
           <br />
           <br />
           <label htmlFor="">Last Name : </label>
@@ -172,6 +189,9 @@ const SuperDashboard = () => {
               setFormData({ ...formData, lastName: e.target.value })
             }
           />
+           <span className="error" style={{ color: "red" }}>
+          {errors.lastName}
+        </span>
           <br />
           <br />
           <label htmlFor="">Email : </label>
@@ -183,6 +203,9 @@ const SuperDashboard = () => {
               setFormData({ ...formData, email: e.target.value })
             }
           />
+           <span className="error" style={{ color: "red" }}>
+          {errors.email}
+        </span>
           <br />
           <br />
           <label htmlFor="">Password : </label>
@@ -194,6 +217,9 @@ const SuperDashboard = () => {
               setFormData({ ...formData, password: e.target.value })
             }
           />
+          <span className="error" style={{ color: "red" }}>
+          {errors.password}
+        </span>
           <br />
           <br />
           {/* <select value={gender} onChange={(e) => setGender(e.target.value)}>
@@ -205,7 +231,7 @@ const SuperDashboard = () => {
             onChange={(e) =>
               setFormData({ ...formData, gender: e.target.value })
             }
-            required
+            
           >
             <option value="" disabled>
               Select gender
@@ -213,6 +239,9 @@ const SuperDashboard = () => {
             <option value="male">Male</option>
             <option value="female">Female</option>
           </select>
+            <span className="error" style={{ color: "red" }}>
+          {errors.gender}
+        </span>
           <br />
           <br />
           <select
@@ -226,6 +255,9 @@ const SuperDashboard = () => {
             <option value="admin">Admin</option>
             <option value="superadmin">Super Admin</option>
           </select>
+          <span className="error" style={{ color: "red" }}>
+          {errors.role}
+          </span>
           <br />
           <br />
           <button type="submit">Submit</button>
